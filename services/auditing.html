@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nexus Auditing & Assurance â€” statutory, internal, and donor audits conducted to ISA standards. Independent opinions that withstand regulatory and stakeholder scrutiny." />
+  <title>Auditing & Assurance | Brezoid Global Networks Limited</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{primary:{DEFAULT:'#113766',dark:'#0b2548',light:'#1a4d8f'},accent:{DEFAULT:'#CC9F46',dark:'#a87d2e',light:'#e0b96a'}},fontFamily:{display:['"Cormorant Garamond"','Georgia','serif'],body:['"DM Sans"','sans-serif'],mono:['"DM Mono"','monospace']}}}}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <style>
+    .audit-type-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .audit-type-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--primary-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .audit-type-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+    .audit-type-card:hover::before { transform: scaleX(1); }
+    .audit-icon-wrap {
+      width: 52px; height: 52px;
+      background: var(--primary-muted);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      transition: all 0.3s;
+    }
+    .audit-icon-wrap svg { color: var(--primary); transition: color 0.3s; }
+    .audit-type-card:hover .audit-icon-wrap { background: var(--primary); }
+    .audit-type-card:hover .audit-icon-wrap svg { color: var(--accent); }
+    .isa-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      background: var(--primary-muted);
+      border: 1px solid rgba(17,55,102,0.15);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+    }
+    .standard-row {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .standard-row:last-child { border-bottom: none; }
+    .standard-code {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      min-width: 64px;
+      flex-shrink: 0;
+    }
+    .deliverable-card{padding:1.5rem;border:1px solid var(--border-soft);border-radius:12px;background:var(--white);transition:all 0.25s ease;display:flex;gap:1rem;align-items:flex-start;}
+    .deliverable-card:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);}
+    .deliverable-icon{width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.25s;}
+    .deliverable-icon svg{color:var(--primary);}
+    .deliverable-card:hover .deliverable-icon{background:var(--primary);}
+    .deliverable-card:hover .deliverable-icon svg{color:var(--white);}
+    .related-card{display:flex;align-items:center;gap:1rem;padding:1.25rem;border:1px solid var(--border);border-radius:12px;background:var(--white);text-decoration:none;transition:all 0.25s ease;}
+    .related-card:hover{border-color:var(--primary);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
+  </style>
+</head>
+<body class="font-body">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="page-transition-overlay" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="nav-solid" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></a>
+      <ul class="nav-menu" role="list">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../about.html" class="nav-link">About Us</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Services <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg></button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="tax-agent.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="file-text" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Agency</span><span class="nav-dropdown-desc">KRA compliance &amp; filing</span></span></a>
+            <a href="auditing.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="search" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Auditing &amp; Assurance</span><span class="nav-dropdown-desc">Statutory &amp; internal audits</span></span></a>
+            <a href="bookkeeping.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="book-open" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Bookkeeping</span><span class="nav-dropdown-desc">Accurate financial records</span></span></a>
+            <a href="accounting.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="bar-chart-2" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Accounting</span><span class="nav-dropdown-desc">IFRS-compliant reporting</span></span></a>
+            <a href="tax-advisory.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="briefcase" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Advisory</span><span class="nav-dropdown-desc">Strategic tax planning</span></span></a>
+            <a href="business-registration.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="award" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Business Registration</span><span class="nav-dropdown-desc">Company &amp; NGO setup</span></span></a>
+            <a href="forensic.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Forensic Accounting</span><span class="nav-dropdown-desc">Fraud detection &amp; litigation</span></span></a>
+            <a href="international-tax.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">International Tax</span><span class="nav-dropdown-desc">Cross-border structuring</span></span></a>
+          </div>
+        </li>
+        <li><a href="../contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:1rem;margin-left:1rem;">
+        <a href="tel:+254700000000" class="hidden lg:flex items-center gap-2" style="color:var(--muted);font-family:var(--font-mono);font-size:0.78rem;" aria-label="Call us"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>+254 700 000 000</a>
+        <a href="../quote.html" class="nav-cta nav-cta-solid">Get a Quote</a>
+        <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div style="margin-bottom:2rem;"><div class="nav-logo"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark" style="color:var(--primary)">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></div></div>
+    <a href="../index.html" class="nav-mobile-link">Home</a><a href="../about.html" class="nav-mobile-link">About Us</a>
+    <button class="nav-mobile-link w-full text-left" data-mobile-accordion="#mob-svc" aria-expanded="false">Services <svg data-feather="chevron-down" width="16" height="16" data-accordion-icon aria-hidden="true"></svg></button>
+    <div id="mob-svc" class="nav-mobile-sub"><a href="tax-agent.html" class="nav-mobile-sub-link">Tax Agency</a><a href="auditing.html" class="nav-mobile-sub-link">Auditing</a><a href="bookkeeping.html" class="nav-mobile-sub-link">Bookkeeping</a><a href="accounting.html" class="nav-mobile-sub-link">Accounting</a><a href="tax-advisory.html" class="nav-mobile-sub-link">Tax Advisory</a><a href="business-registration.html" class="nav-mobile-sub-link">Business Registration</a><a href="forensic.html" class="nav-mobile-sub-link">Forensic</a><a href="international-tax.html" class="nav-mobile-sub-link">International Tax</a></div>
+    <a href="../contact.html" class="nav-mobile-link">Contact</a>
+    <div class="nav-mobile-divider"></div>
+    <div class="nav-mobile-cta"><a href="../quote.html" class="btn btn-primary" style="width:100%;justify-content:center;">Get a Free Quote</a></div>
+  </div>
+
+  <main id="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header" style="padding-top:calc(var(--nav-height-scrolled) + 4rem);">
+      <div class="page-header-bg" aria-hidden="true"></div>
+      <div class="page-header-line" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div style="max-width:700px;">
+          <div class="reveal" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;">
+            <span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>
+            <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(204,159,70,0.8);">ISA-Compliant Â· Independent Â· Credible</span>
+          </div>
+          <h1 class="reveal" style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:1.25rem;" data-delay="0.05">
+            Auditing &amp;<br /><em style="color:var(--accent);font-style:italic;">Assurance Services</em>
+          </h1>
+          <p class="reveal text-lead" style="color:rgba(255,255,255,0.6);max-width:540px;" data-delay="0.1">Statutory, internal, and donor audits conducted to International Standards on Auditing â€” delivering independent opinions that regulators, donors, and boards rely on.</p>
+          <nav aria-label="Breadcrumb" class="reveal" style="margin-top:2rem;" data-delay="0.15">
+            <ol style="display:flex;align-items:center;gap:0.5rem;font-family:var(--font-mono);font-size:0.68rem;color:rgba(255,255,255,0.4);" role="list">
+              <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li><a href="index.html" class="breadcrumb-link">Services</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li style="color:var(--accent);" aria-current="page">Auditing &amp; Assurance</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="section bg-white" aria-labelledby="overview-h">
+      <div class="container">
+        <div class="rg-sidebar">
+
+          <div style="grid-column:span 2 / span 2;">
+            <div class="reveal">
+              <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;"><span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>Our Approach</span>
+              <h2 class="heading-section" id="overview-h">An Audit That Stands<br /><em style="font-style:italic;color:var(--primary-light);">Scrutiny. Every Time.</em></h2>
+              <hr class="section-rule" />
+            </div>
+            <div class="reveal" data-delay="0.07">
+              <p style="font-size:1rem;line-height:1.9;color:var(--body-text);margin-bottom:1.2rem;">At Nexus, auditing is not a box-ticking exercise. Our audit methodology is built on deep substantive testing, rigorous risk assessment, and genuine professional scepticism â€” the qualities that protect an auditor's independence and give your stakeholders a truly reliable opinion.</p>
+              <p style="font-size:1rem;line-height:1.9;color:var(--body-text);margin-bottom:1.2rem;">Every engagement is personally led by a partner. We staff our teams with sector-experienced seniors â€” not rotating juniors â€” ensuring that the person reviewing your books understands your industry's specific accounting treatments, tax exposures, and reporting obligations.</p>
+              <p style="font-size:1rem;line-height:1.9;color:var(--body-text);">Our quality management framework is aligned to ISQM-1, with annual independent quality reviews and robust engagement file documentation that meets the requirements of ICPAK, development sector donors, and listed company regulations.</p>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="reveal" data-delay="0.1" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+            <h3 style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;">Engagement Facts</h3>
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">Standard</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);font-family:var(--font-mono);">ISA / IFRS</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">QM Framework</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);font-family:var(--font-mono);">ISQM-1</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">Statutory audit from</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--primary);font-family:var(--font-mono);">KES 75,000</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">Delivery timeline</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);">3â€“8 weeks</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="font-size:0.82rem;color:var(--muted);">Engagement lead</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);">Named partner</span>
+              </div>
+            </div>
+            <a href="../quote.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;">Request an Audit Proposal</a>
+            <a href="tel:+254700000000" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:0.5rem;font-size:0.8rem;"><svg data-feather="phone" width="14" height="14" aria-hidden="true"></svg>Speak to the Audit Partner</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIT TYPES -->
+    <section class="section" style="background:var(--surface);" aria-labelledby="types-h">
+      <div class="container">
+        <div class="section-header center reveal" style="margin-bottom:2.5rem;">
+          <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:1rem;">Our Audit Practice Areas</span>
+          <h2 class="heading-section" id="types-h" style="text-align:center;">Four Audit <em style="font-style:italic;color:var(--primary-light);">Specialisms</em></h2>
+          <hr class="section-rule center" />
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:1.5rem;">
+
+          <div class="audit-type-card reveal" data-delay="0.00">
+            <div class="audit-icon-wrap"><svg data-feather="file-text" width="22" height="22" aria-hidden="true"></svg></div>
+            <div class="isa-badge"><svg data-feather="check-circle" width="11" height="11" aria-hidden="true"></svg>ISA 700 Â· ISA 705 Â· ISA 706</div>
+            <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:500;color:var(--ink);margin-bottom:0.6rem;">Statutory Financial Audit</h3>
+            <p style="font-size:0.875rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;">Annual audits required by the Companies Act, Capital Markets Authority, NGO Co-ordination Board, and other regulators. Unmodified, qualified, and adverse opinions expressed as warranted.</p>
+            <ul class="dot-list">
+              <li>Companies Act-compliant audit reports</li>
+              <li>Group &amp; consolidated audits</li>
+              <li>Sector-specific reporting (IFRS / IPSAS)</li>
+              <li>Component audits for group reporting</li>
+            </ul>
+          </div>
+
+          <div class="audit-type-card reveal" data-delay="0.08">
+            <div class="audit-icon-wrap"><svg data-feather="heart" width="22" height="22" aria-hidden="true"></svg></div>
+            <div class="isa-badge"><svg data-feather="check-circle" width="11" height="11" aria-hidden="true"></svg>USAID Â· EU Â· UN Â· Global Fund</div>
+            <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:500;color:var(--ink);margin-bottom:0.6rem;">Donor &amp; Grant Audits</h3>
+            <p style="font-size:0.875rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;">Specialised audits under bilateral and multilateral donor requirements â€” USAID, EU, DFID, UN agencies, and the Global Fund. We understand restricted fund accounting and compliance conditions.</p>
+            <ul class="dot-list">
+              <li>Project-specific expenditure audits</li>
+              <li>Financial management assessments</li>
+              <li>Compliance with donor conditions</li>
+              <li>Management letters with recommendations</li>
+            </ul>
+          </div>
+
+          <div class="audit-type-card reveal" data-delay="0.16">
+            <div class="audit-icon-wrap"><svg data-feather="settings" width="22" height="22" aria-hidden="true"></svg></div>
+            <div class="isa-badge"><svg data-feather="check-circle" width="11" height="11" aria-hidden="true"></svg>IIA Standards Â· Risk-Based</div>
+            <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:500;color:var(--ink);margin-bottom:0.6rem;">Internal Audit Co-Sourcing</h3>
+            <p style="font-size:0.875rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;">Risk-based internal audit programmes for organisations without a full in-house IA function. We operate as your internal audit department â€” reporting to your Audit Committee with full independence.</p>
+            <ul class="dot-list">
+              <li>Annual risk-based IA plan</li>
+              <li>Process &amp; control reviews</li>
+              <li>IT general controls assessment</li>
+              <li>Audit Committee reporting</li>
+            </ul>
+          </div>
+
+          <div class="audit-type-card reveal" data-delay="0.24">
+            <div class="audit-icon-wrap"><svg data-feather="eye" width="22" height="22" aria-hidden="true"></svg></div>
+            <div class="isa-badge"><svg data-feather="check-circle" width="11" height="11" aria-hidden="true"></svg>ISRE 2400 Â· ISRS 4400</div>
+            <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:500;color:var(--ink);margin-bottom:0.6rem;">Review &amp; Special Purpose Engagements</h3>
+            <p style="font-size:0.875rem;color:var(--muted);line-height:1.75;margin-bottom:1rem;">Limited assurance reviews, agreed-upon procedures, and compilation engagements for investors, lenders, and regulatory submissions where a full audit is not required.</p>
+            <ul class="dot-list">
+              <li>Half-year financial reviews</li>
+              <li>Due diligence agreed-upon procedures</li>
+              <li>Lender covenant compliance reports</li>
+              <li>Regulatory submission compilations</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERABLES + STANDARDS -->
+    <section class="section bg-white" aria-labelledby="standards-h">
+      <div class="container">
+        <div class="rg-2">
+
+          <!-- Deliverables -->
+          <div>
+            <div class="reveal">
+              <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;"><span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>What You Receive</span>
+              <h3 style="font-family:var(--font-display);font-size:clamp(1.5rem,2.5vw,2rem);font-weight:400;color:var(--ink);margin-bottom:0.875rem;">Audit <em style="font-style:italic;color:var(--primary-light);">Deliverables</em></h3>
+              <hr class="section-rule" />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.875rem;" class="reveal" data-delay="0.06">
+              <div class="deliverable-card"><div class="deliverable-icon"><svg data-feather="file-text" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:0.95rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Independent Auditor's Report</h4><p style="font-size:0.8rem;color:var(--muted);line-height:1.65;">Signed opinion on the financial statements with emphasis-of-matter and key audit matters where required.</p></div></div>
+              <div class="deliverable-card"><div class="deliverable-icon"><svg data-feather="mail" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:0.95rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Management Letter</h4><p style="font-size:0.8rem;color:var(--muted);line-height:1.65;">Detailed findings on internal control deficiencies, with graded recommendations and management responses.</p></div></div>
+              <div class="deliverable-card"><div class="deliverable-icon"><svg data-feather="bar-chart-2" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:0.95rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Audited Financial Statements</h4><p style="font-size:0.8rem;color:var(--muted);line-height:1.65;">Fully formatted, regulator-ready financial statements with comparative figures and disclosure notes.</p></div></div>
+              <div class="deliverable-card"><div class="deliverable-icon"><svg data-feather="users" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:0.95rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Audit Committee Presentation</h4><p style="font-size:0.8rem;color:var(--muted);line-height:1.65;">Summary deck covering audit findings, key risks, and going-concern assessment for board or committee review.</p></div></div>
+              <div class="deliverable-card"><div class="deliverable-icon"><svg data-feather="check-square" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:0.95rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Representation Letter</h4><p style="font-size:0.8rem;color:var(--muted);line-height:1.65;">Signed management representation letter as required under ISA 580 for engagement file completion.</p></div></div>
+            </div>
+          </div>
+
+          <!-- Standards -->
+          <div>
+            <div class="reveal" data-delay="0.05">
+              <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;"><span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>Standards We Apply</span>
+              <h3 id="standards-h" style="font-family:var(--font-display);font-size:clamp(1.5rem,2.5vw,2rem);font-weight:400;color:var(--ink);margin-bottom:0.875rem;">ISA &amp; IFRS <em style="font-style:italic;color:var(--primary-light);">Compliance</em></h3>
+              <hr class="section-rule" />
+              <p style="font-size:0.95rem;line-height:1.85;color:var(--muted);margin-bottom:1.5rem;">Our audit methodology is built on the full suite of International Standards on Auditing, applied consistently across every engagement regardless of client size.</p>
+            </div>
+            <div class="reveal" data-delay="0.1">
+              <div class="standard-row"><span class="standard-code">ISA 200</span><div><p style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:1px;">Overall Objectives</p><p style="font-size:0.78rem;color:var(--muted);">Independence, professional scepticism, and reasonable assurance framework.</p></div></div>
+              <div class="standard-row"><span class="standard-code">ISA 315</span><div><p style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:1px;">Risk Assessment</p><p style="font-size:0.78rem;color:var(--muted);">Entity-level controls, business risk, and fraud risk identification.</p></div></div>
+              <div class="standard-row"><span class="standard-code">ISA 330</span><div><p style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:1px;">Responses to Assessed Risks</p><p style="font-size:0.78rem;color:var(--muted);">Substantive testing design calibrated to identified audit risks.</p></div></div>
+              <div class="standard-row"><span class="standard-code">ISA 540</span><div><p style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:1px;">Accounting Estimates</p><p style="font-size:0.78rem;color:var(--muted);">Robust evaluation of management's judgements and estimates.</p></div></div>
+              <div class="standard-row"><span class="standard-code">ISA 570</span><div><p style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:1px;">Going Concern</p><p style="font-size:0.78rem;color:var(--muted);">Formal going-concern assessment and disclosure requirements.</p></div></div>
+              <div class="standard-row"><span class="standard-code">ISQM-1</span><div><p style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:1px;">Firm Quality Management</p><p style="font-size:0.78rem;color:var(--muted);">Annual firm-wide quality review and engagement-level quality control.</p></div></div>
+            </div>
+
+            <!-- Audit process -->
+            <div class="reveal" data-delay="0.14" style="margin-top:2rem;background:var(--primary);border-radius:14px;padding:1.75rem;">
+              <h4 style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;">Typical Audit Timeline</h4>
+              <div style="display:flex;flex-direction:column;gap:0.875rem;">
+                <div style="display:flex;align-items:center;gap:0.875rem;"><span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);min-width:60px;">Week 1</span><div style="flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:25%;height:100%;background:var(--accent);border-radius:3px;"></div></div><span style="font-size:0.78rem;color:rgba(255,255,255,0.6);">Planning &amp; risk assessment</span></div>
+                <div style="display:flex;align-items:center;gap:0.875rem;"><span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);min-width:60px;">Wk 2â€“4</span><div style="flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:60%;height:100%;background:var(--accent);border-radius:3px;"></div></div><span style="font-size:0.78rem;color:rgba(255,255,255,0.6);">Fieldwork &amp; testing</span></div>
+                <div style="display:flex;align-items:center;gap:0.875rem;"><span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);min-width:60px;">Week 5</span><div style="flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:80%;height:100%;background:var(--accent);border-radius:3px;"></div></div><span style="font-size:0.78rem;color:rgba(255,255,255,0.6);">Completion &amp; review</span></div>
+                <div style="display:flex;align-items:center;gap:0.875rem;"><span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);min-width:60px;">Week 6+</span><div style="flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;"><div style="width:100%;height:100%;background:linear-gradient(90deg,var(--accent),#e0b96a);border-radius:3px;"></div></div><span style="font-size:0.78rem;color:rgba(255,255,255,0.6);">Reporting &amp; sign-off</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RELATED SERVICES -->
+    <section class="section--sm" style="background:var(--surface);" aria-labelledby="related-h">
+      <div class="container">
+        <h2 class="reveal" id="related-h" style="font-family:var(--font-display);font-size:1.5rem;font-weight:400;color:var(--ink);margin-bottom:1.5rem;">Commonly Paired <em style="font-style:italic;color:var(--primary-light);">Services</em></h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;">
+          <a href="accounting.html" class="related-card reveal" data-delay="0.00"><div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="bar-chart-2" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div><div><p style="font-size:0.88rem;font-weight:500;color:var(--ink);">Accounting</p><p style="font-size:0.78rem;color:var(--muted);">Audit-ready IFRS statements.</p></div><svg data-feather="arrow-right" width="14" height="14" style="color:var(--accent);flex-shrink:0;margin-left:auto;" aria-hidden="true"></svg></a>
+          <a href="tax-agent.html" class="related-card reveal" data-delay="0.06"><div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="file-text" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div><div><p style="font-size:0.88rem;font-weight:500;color:var(--ink);">Tax Agency</p><p style="font-size:0.78rem;color:var(--muted);">Filing aligned with audited results.</p></div><svg data-feather="arrow-right" width="14" height="14" style="color:var(--accent);flex-shrink:0;margin-left:auto;" aria-hidden="true"></svg></a>
+          <a href="forensic.html" class="related-card reveal" data-delay="0.12"><div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="shield" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div><div><p style="font-size:0.88rem;font-weight:500;color:var(--ink);">Forensic Accounting</p><p style="font-size:0.78rem;color:var(--muted);">When issues arise during audit.</p></div><svg data-feather="arrow-right" width="14" height="14" style="color:var(--accent);flex-shrink:0;margin-left:auto;" aria-hidden="true"></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);padding:5rem 0;position:relative;overflow:hidden;" aria-labelledby="svc-cta-h">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(204,159,70,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(204,159,70,0.05) 1px,transparent 1px);background-size:48px 48px;" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;text-align:center;">
+        <h2 class="heading-section reveal" id="svc-cta-h" style="color:var(--white);margin-bottom:1rem;">Ready to Commission Your Audit?</h2>
+        <p class="reveal" data-delay="0.06" style="color:rgba(255,255,255,0.6);max-width:480px;margin:0 auto 2.5rem;font-size:1rem;line-height:1.8;">Request a fixed-fee audit proposal. A partner will review your requirements and respond within 4 business hours.</p>
+        <div class="reveal" data-delay="0.1" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+          <a href="../quote.html" class="btn btn-accent btn-lg"><svg data-feather="arrow-right-circle" width="18" height="18" aria-hidden="true"></svg>Request Audit Proposal</a>
+          <a href="../contact.html" class="btn btn-outline-light btn-lg">Speak to the Audit Partner</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top"><div class="container"><div class="footer-grid">
+      <div><div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></div><p class="footer-brand-desc">Kenya's trusted partner for tax advisory, statutory audits, and financial compliance.</p><a href="tel:+254700000000" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>+254 700 000 000</a><br/><a href="mailto:info@nexustax.co.ke" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;"><svg data-feather="mail" width="13" height="13" aria-hidden="true"></svg>info@nexustax.co.ke</a></div>
+      <div><h3 class="footer-heading">Services</h3><ul class="footer-links" role="list"><li><a href="tax-agent.html" class="footer-link">Tax Agency</a></li><li><a href="auditing.html" class="footer-link">Auditing &amp; Assurance</a></li><li><a href="bookkeeping.html" class="footer-link">Bookkeeping</a></li><li><a href="accounting.html" class="footer-link">Accounting</a></li><li><a href="tax-advisory.html" class="footer-link">Tax Advisory</a></li><li><a href="forensic.html" class="footer-link">Forensic Accounting</a></li><li><a href="international-tax.html" class="footer-link">International Tax</a></li></ul></div>
+      <div><h3 class="footer-heading">Company</h3><ul class="footer-links" role="list"><li><a href="../about.html" class="footer-link">About Us</a></li><li><a href="../contact.html" class="footer-link">Contact</a></li><li><a href="../quote.html" class="footer-link">Get a Quote</a></li></ul></div>
+      <div><h3 class="footer-heading">Tax Updates</h3><p style="font-size:0.82rem;color:rgba(255,255,255,0.42);line-height:1.75;margin-bottom:1.25rem;">KRA alerts &amp; compliance updates to your inbox.</p><form id="nf" style="display:flex;gap:0.5rem;" novalidate><input type="email" placeholder="Your email" style="flex:1;padding:0.7rem 0.875rem;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:6px;color:white;font-size:0.85rem;font-family:var(--font-body);outline:none;" aria-label="Email" required/><button type="submit" class="btn btn-accent" style="padding:0.7rem 0.875rem;" aria-label="Subscribe"><svg data-feather="arrow-right" width="16" height="16" aria-hidden="true"></svg></button></form></div>
+    </div></div></div>
+    <div class="container"><div class="footer-bottom"><p class="footer-copy">&copy; <span id="fy">2025</span> Brezoid Global Networks Limited. All rights reserved.</p><nav aria-label="Legal" style="display:flex;gap:1.25rem;"><a href="../privacy.html" class="footer-link" style="font-family:var(--font-mono);font-size:0.66rem;">Privacy</a><a href="../terms.html" class="footer-link" style="font-family:var(--font-mono);font-size:0.66rem;">Terms</a></nav><div class="footer-social" role="list"><a href="#" class="footer-social-link" aria-label="LinkedIn" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></div></div></div>
+  </footer>
+  <button class="back-to-top" aria-label="Back to top"><svg data-feather="arrow-up" width="18" height="18" aria-hidden="true"></svg></button>
+  <script>
+    document.getElementById('fy').textContent=new Date().getFullYear();
+    document.getElementById('nf').addEventListener('submit',function(e){e.preventDefault();const i=this.querySelector('input'),b=this.querySelector('button');if(!i||!i.value.trim())return;b.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';b.style.background='#1a8a5c';i.value='';i.placeholder="Subscribed!";i.disabled=true;});
+  </script>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
+
+

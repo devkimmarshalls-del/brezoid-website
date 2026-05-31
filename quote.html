@@ -1,0 +1,897 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Get a free, no-obligation quote from Brezoid Global Networks Limited. Tell us about your needs and a partner will respond within 4 hours." />
+  <title>Get a Free Quote | Brezoid Global Networks Limited</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#113766', dark: '#0b2548', light: '#1a4d8f' },
+            accent:  { DEFAULT: '#CC9F46', dark: '#a87d2e', light: '#e0b96a' },
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body:    ['"DM Sans"', 'sans-serif'],
+            mono:    ['"DM Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    /* â”€â”€ Two-panel quote layout â”€â”€ */
+    .quote-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: calc(100vh - var(--nav-height-scrolled));
+    }
+    @media (min-width: 1024px) {
+      .quote-layout { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Left panel */
+    .quote-panel-left {
+      background: linear-gradient(155deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+      padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-panel-left::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(204,159,70,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(204,159,70,0.04) 1px, transparent 1px);
+      background-size: 52px 52px;
+    }
+    .quote-left-glow {
+      position: absolute;
+      bottom: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(204,159,70,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Right panel */
+    .quote-panel-right {
+      background: var(--white);
+      padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+      overflow-y: auto;
+    }
+
+    /* Trust point */
+    .trust-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.125rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .trust-point:last-child { border-bottom: none; }
+    .trust-point-icon {
+      width: 36px; height: 36px;
+      background: rgba(204,159,70,0.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .trust-point-icon svg { color: var(--accent); }
+
+    /* Step indicator */
+    .form-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 2.5rem;
+    }
+    .form-step {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+    .form-step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .form-step-num.active {
+      background: var(--primary);
+      color: var(--white);
+    }
+    .form-step-num.done {
+      background: var(--success);
+      color: var(--white);
+    }
+    .form-step-num.pending {
+      background: var(--border);
+      color: var(--muted);
+    }
+    .form-step-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .form-step-connector {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin: 0 0.75rem;
+      min-width: 20px;
+    }
+    .form-step-connector.done { background: var(--success); }
+
+    /* Service option cards */
+    .service-option {
+      position: relative;
+    }
+    .service-option input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .service-option-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: var(--body-text);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .service-option-label:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-muted);
+    }
+    .service-option input:checked + .service-option-label {
+      border-color: var(--primary);
+      background: var(--primary-muted);
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .service-option-check {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .service-option input:checked + .service-option-label .service-option-check {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .service-option-check svg {
+      width: 10px; height: 10px;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .service-option input:checked + .service-option-label .service-option-check svg {
+      opacity: 1;
+    }
+
+    /* Budget range options */
+    .budget-option {
+      position: relative;
+    }
+    .budget-option input[type="radio"] {
+      position: absolute; opacity: 0; width: 0; height: 0;
+    }
+    .budget-option-label {
+      display: block;
+      padding: 0.875rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      text-align: center;
+      color: var(--body-text);
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .budget-option-label:hover { border-color: var(--accent); color: var(--accent-dark); }
+    .budget-option input:checked + .budget-option-label {
+      border-color: var(--accent);
+      background: var(--accent-muted);
+      color: var(--accent-dark);
+      font-weight: 500;
+    }
+
+    /* Progress bar */
+    .quote-progress-bar {
+      height: 3px;
+      background: var(--border-soft);
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .quote-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+      transition: width 0.5s var(--ease-out);
+    }
+
+    /* Form states */
+    .form-group.has-error .form-input,
+    .form-group.has-error .form-select,
+    .form-group.has-error .form-textarea { border-color: var(--error); }
+
+    /* Success */
+    .quote-success { display: none; text-align: center; padding: 3rem 1rem; }
+    .quote-success-ring {
+      width: 88px; height: 88px;
+      border: 2px solid rgba(26,138,92,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.75rem;
+      position: relative;
+    }
+    .quote-success-ring::before {
+      content: '';
+      position: absolute; inset: -8px;
+      border: 1px solid rgba(26,138,92,0.1);
+      border-radius: 50%;
+    }
+    .quote-success-icon {
+      width: 64px; height: 64px;
+      background: rgba(26,138,92,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Testimonial in sidebar */
+    .sidebar-testimonial {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+  </style>
+</head>
+<body class="font-body" style="overflow-x:hidden;">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="page-transition-overlay" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="nav-solid" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Brezoid Global Networks Limited â€” Home">
+        <div class="nav-logo-icon" aria-hidden="true"></div>
+        <div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div>
+      </a>
+      <ul class="nav-menu" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Services <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg></button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="file-text" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Agency</span><span class="nav-dropdown-desc">KRA compliance &amp; filing</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="search" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Auditing &amp; Assurance</span><span class="nav-dropdown-desc">Statutory &amp; internal audits</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="book-open" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Bookkeeping</span><span class="nav-dropdown-desc">Accurate financial records</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="bar-chart-2" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Accounting</span><span class="nav-dropdown-desc">IFRS-compliant reporting</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="briefcase" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Advisory</span><span class="nav-dropdown-desc">Strategic tax planning</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Forensic Accounting</span><span class="nav-dropdown-desc">Fraud detection &amp; litigation</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">International Tax</span><span class="nav-dropdown-desc">Cross-border structuring</span></span></a>
+          </div>
+        </li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:1rem;margin-left:1rem;">
+        <a href="tel:+254700000000" class="hidden lg:flex items-center gap-2" style="color:var(--muted);font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.04em;" aria-label="Call us"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg> +254 700 000 000</a>
+        <a href="quote.html" class="btn btn-accent btn-sm" aria-current="page">Get a Quote</a>
+        <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div style="margin-bottom:2rem;"><div class="nav-logo"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark" style="color:var(--primary)">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></div></div>
+    <a href="index.html" class="nav-mobile-link">Home</a>
+    <a href="about.html" class="nav-mobile-link">About Us</a>
+    <button class="nav-mobile-link w-full text-left" data-mobile-accordion="#mobile-services" aria-expanded="false">Services <svg data-feather="chevron-down" width="16" height="16" data-accordion-icon aria-hidden="true"></svg></button>
+    <div id="mobile-services" class="nav-mobile-sub">
+      <a href="index.html#services" class="nav-mobile-sub-link">Tax Agency</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Auditing &amp; Assurance</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Bookkeeping</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Accounting</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Tax Advisory</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Forensic Accounting</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">International Tax</a>
+    </div>
+    <a href="contact.html" class="nav-mobile-link">Contact</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="tel:+254700000000" class="flex items-center gap-3 py-3 text-sm" style="color:var(--body-text);"><svg data-feather="phone" width="16" height="16" aria-hidden="true"></svg>+254 700 000 000</a>
+    <div class="nav-mobile-cta"><a href="quote.html" class="btn btn-accent" style="width:100%;justify-content:center;" aria-current="page">Get a Free Quote</a></div>
+  </div>
+
+  <main id="main" style="padding-top:var(--nav-height-scrolled);">
+
+    <div class="quote-layout">
+
+      <!-- â•â• LEFT PANEL â€” Trust & Social Proof â•â• -->
+      <div class="quote-panel-left">
+        <div class="quote-left-glow" aria-hidden="true"></div>
+        <div style="position:relative;z-index:1;max-width:480px;margin:0 auto;">
+
+          <div style="margin-bottom:2.5rem;">
+            <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(204,159,70,0.75);display:block;margin-bottom:1rem;">Free Â· No Obligation</span>
+            <h1 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.1;letter-spacing:-0.02em;color:var(--white);margin-bottom:1rem;">
+              Tell Us What You<br /><em style="color:var(--accent);font-style:italic;">Need â€” We'll Handle</em><br />the Rest.
+            </h1>
+            <p style="font-size:0.95rem;line-height:1.8;color:rgba(255,255,255,0.58);">
+              Complete the form and a Nexus partner â€” not an account manager â€” will personally review your request and respond with a tailored, fixed-fee proposal within 4 business hours.
+            </p>
+          </div>
+
+          <!-- Trust points -->
+          <div style="margin-bottom:2.5rem;">
+            <div class="trust-point">
+              <div class="trust-point-icon"><svg data-feather="clock" width="17" height="17" aria-hidden="true"></svg></div>
+              <div>
+                <div style="font-size:0.88rem;font-weight:500;color:var(--white);margin-bottom:2px;">Response in 4 Business Hours</div>
+                <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.6;">A qualified partner reads every enquiry personally â€” no auto-responders.</div>
+              </div>
+            </div>
+            <div class="trust-point">
+              <div class="trust-point-icon"><svg data-feather="dollar-sign" width="17" height="17" aria-hidden="true"></svg></div>
+              <div>
+                <div style="font-size:0.88rem;font-weight:500;color:var(--white);margin-bottom:2px;">Fixed-Fee, No Surprises</div>
+                <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.6;">Your proposal will include a clear, all-inclusive fee with no hidden charges.</div>
+              </div>
+            </div>
+            <div class="trust-point">
+              <div class="trust-point-icon"><svg data-feather="lock" width="17" height="17" aria-hidden="true"></svg></div>
+              <div>
+                <div style="font-size:0.88rem;font-weight:500;color:var(--white);margin-bottom:2px;">Fully Confidential</div>
+                <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.6;">Your information is protected under professional secrecy obligations and our Privacy Policy.</div>
+              </div>
+            </div>
+            <div class="trust-point">
+              <div class="trust-point-icon"><svg data-feather="user-check" width="17" height="17" aria-hidden="true"></svg></div>
+              <div>
+                <div style="font-size:0.88rem;font-weight:500;color:var(--white);margin-bottom:2px;">Partner-Led Engagement</div>
+                <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.6;">Every client is paired with a named ICPAK-certified partner, not a rotating team.</div>
+              </div>
+            </div>
+            <div class="trust-point">
+              <div class="trust-point-icon"><svg data-feather="x-circle" width="17" height="17" aria-hidden="true"></svg></div>
+              <div>
+                <div style="font-size:0.88rem;font-weight:500;color:var(--white);margin-bottom:2px;">No Long-Term Lock-in</div>
+                <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.6;">We earn your loyalty through results â€” not contractual obligation. Monthly rolling engagements available.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar testimonial -->
+          <div class="sidebar-testimonial">
+            <div style="color:var(--accent);font-size:1rem;letter-spacing:2px;margin-bottom:0.875rem;" aria-label="5 stars">â˜…â˜…â˜…â˜…â˜…</div>
+            <p style="font-family:var(--font-display);font-style:italic;font-size:1rem;line-height:1.7;color:rgba(255,255,255,0.78);margin-bottom:1.125rem;">"The quote process was remarkably professional. Within hours we had a detailed, costed proposal. We signed the same week."</p>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <div style="width:34px;height:34px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;color:var(--ink);font-size:0.85rem;" aria-hidden="true">CN</div>
+              <div>
+                <div style="font-size:0.82rem;font-weight:500;color:var(--white);">Caroline Njoroge</div>
+                <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(204,159,70,0.65);">MD, Horizon Logistics Ltd.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats strip -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;">
+            <div style="text-align:center;">
+              <div style="font-family:var(--font-display);font-size:1.75rem;font-weight:300;color:var(--white);line-height:1;">500<span style="color:var(--accent);">+</span></div>
+              <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:4px;">Clients</div>
+            </div>
+            <div style="text-align:center;border-left:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.08);">
+              <div style="font-family:var(--font-display);font-size:1.75rem;font-weight:300;color:var(--white);line-height:1;">98<span style="color:var(--accent);">%</span></div>
+              <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:4px;">Retention</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:var(--font-display);font-size:1.75rem;font-weight:300;color:var(--white);line-height:1;">20<span style="color:var(--accent);">+</span></div>
+              <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:4px;">Years</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- â•â• RIGHT PANEL â€” Quote Form â•â• -->
+      <div class="quote-panel-right">
+        <div style="max-width:560px;margin:0 auto;">
+
+          <!-- Step indicator -->
+          <div class="form-steps" role="list" aria-label="Form progress">
+            <div class="form-step" role="listitem">
+              <div class="form-step-num active" id="step-num-1" aria-current="step">1</div>
+              <span class="form-step-label" style="color:var(--primary);font-weight:500;">Your Details</span>
+            </div>
+            <div class="form-step-connector" id="connector-1-2"></div>
+            <div class="form-step" role="listitem">
+              <div class="form-step-num pending" id="step-num-2">2</div>
+              <span class="form-step-label" style="color:var(--muted);" id="step-label-2">Services</span>
+            </div>
+            <div class="form-step-connector" id="connector-2-3"></div>
+            <div class="form-step" role="listitem">
+              <div class="form-step-num pending" id="step-num-3">3</div>
+              <span class="form-step-label" style="color:var(--muted);" id="step-label-3">Details</span>
+            </div>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="quote-progress-bar" aria-hidden="true">
+            <div class="quote-progress-fill" id="progress-fill" style="width:33%;"></div>
+          </div>
+
+          <form id="quote-form" novalidate aria-label="Get a quote form">
+
+            <!-- â• STEP 1: Personal Details â• -->
+            <div id="quote-step-1">
+              <div style="margin-bottom:2rem;">
+                <h2 style="font-family:var(--font-display);font-size:1.75rem;font-weight:400;color:var(--ink);margin-bottom:0.4rem;">Your Details</h2>
+                <p style="font-size:0.875rem;color:var(--muted);">Who should we address the proposal to?</p>
+              </div>
+
+              <div class="form-grid form-grid-2" style="margin-bottom:1.25rem;">
+                <div class="form-group">
+                  <label class="form-label" for="q-first">First Name <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                  <input class="form-input" type="text" id="q-first" name="first_name" placeholder="James" required autocomplete="given-name"/>
+                  <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="q-last">Last Name <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                  <input class="form-input" type="text" id="q-last" name="last_name" placeholder="Mwangi" required autocomplete="family-name"/>
+                  <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:1.25rem;">
+                <label class="form-label" for="q-email">Work Email <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                <input class="form-input" type="email" id="q-email" name="email" placeholder="james@company.co.ke" required autocomplete="email"/>
+                <span class="form-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group" style="margin-bottom:1.25rem;">
+                <label class="form-label" for="q-phone">Phone Number <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                <input class="form-input" type="tel" id="q-phone" name="phone" placeholder="+254 7XX XXX XXX" required autocomplete="tel"/>
+                <span class="form-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-grid form-grid-2" style="margin-bottom:1.25rem;">
+                <div class="form-group">
+                  <label class="form-label" for="q-company">Company / Organisation <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                  <input class="form-input" type="text" id="q-company" name="company" placeholder="Horizon Ltd." required autocomplete="organization"/>
+                  <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="q-role">Your Role</label>
+                  <input class="form-input" type="text" id="q-role" name="role" placeholder="e.g. Finance Director" autocomplete="organization-title"/>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:2rem;">
+                <label class="form-label" for="q-entity">Entity Type</label>
+                <select class="form-select" id="q-entity" name="entity_type">
+                  <option value="" disabled selected>Select entity typeâ€¦</option>
+                  <option value="limited">Limited Company (Ltd)</option>
+                  <option value="plc">Public Company (PLC)</option>
+                  <option value="sole">Sole Proprietorship</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="ngo">NGO / Foundation / Trust</option>
+                  <option value="sacco">SACCO / Cooperative</option>
+                  <option value="individual">Individual / HNW</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <button type="button" id="step1-next" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">
+                Continue to Services
+                <svg data-feather="arrow-right" width="18" height="18" aria-hidden="true"></svg>
+              </button>
+            </div>
+
+            <!-- â• STEP 2: Services â• -->
+            <div id="quote-step-2" style="display:none;" aria-hidden="true">
+              <div style="margin-bottom:2rem;">
+                <button type="button" id="back-to-1" style="display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;margin-bottom:1.25rem;transition:color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--muted)'">
+                  <svg data-feather="arrow-left" width="14" height="14" aria-hidden="true"></svg> Back
+                </button>
+                <h2 style="font-family:var(--font-display);font-size:1.75rem;font-weight:400;color:var(--ink);margin-bottom:0.4rem;">Services Needed</h2>
+                <p style="font-size:0.875rem;color:var(--muted);">Select all that apply â€” you can select multiple.</p>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.625rem;margin-bottom:2rem;" role="group" aria-label="Select services">
+                <div class="service-option">
+                  <input type="checkbox" id="svc-tax" name="services" value="tax-agency"/>
+                  <label class="service-option-label" for="svc-tax">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="file-text" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    Tax Agency
+                  </label>
+                </div>
+                <div class="service-option">
+                  <input type="checkbox" id="svc-audit" name="services" value="auditing"/>
+                  <label class="service-option-label" for="svc-audit">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="search" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    Auditing
+                  </label>
+                </div>
+                <div class="service-option">
+                  <input type="checkbox" id="svc-books" name="services" value="bookkeeping"/>
+                  <label class="service-option-label" for="svc-books">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="book-open" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    Bookkeeping
+                  </label>
+                </div>
+                <div class="service-option">
+                  <input type="checkbox" id="svc-acct" name="services" value="accounting"/>
+                  <label class="service-option-label" for="svc-acct">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="bar-chart-2" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    Accounting
+                  </label>
+                </div>
+                <div class="service-option">
+                  <input type="checkbox" id="svc-adv" name="services" value="tax-advisory"/>
+                  <label class="service-option-label" for="svc-adv">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="briefcase" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    Tax Advisory
+                  </label>
+                </div>
+                <div class="service-option">
+                  <input type="checkbox" id="svc-reg" name="services" value="business-reg"/>
+                  <label class="service-option-label" for="svc-reg">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="award" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    Biz Registration
+                  </label>
+                </div>
+                <div class="service-option">
+                  <input type="checkbox" id="svc-for" name="services" value="forensic"/>
+                  <label class="service-option-label" for="svc-for">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="shield" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    Forensic
+                  </label>
+                </div>
+                <div class="service-option">
+                  <input type="checkbox" id="svc-intl" name="services" value="international-tax"/>
+                  <label class="service-option-label" for="svc-intl">
+                    <span class="service-option-check"><svg data-feather="check" aria-hidden="true"></svg></span>
+                    <svg data-feather="globe" width="14" height="14" style="flex-shrink:0;color:var(--accent);" aria-hidden="true"></svg>
+                    International Tax
+                  </label>
+                </div>
+              </div>
+              <span class="form-error" id="services-error" role="alert" aria-live="polite" style="display:block;margin-bottom:1rem;"></span>
+
+              <!-- Urgency -->
+              <div class="form-group" style="margin-bottom:2rem;">
+                <label class="form-label" for="q-urgency">How soon do you need this? <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                <select class="form-select" id="q-urgency" name="urgency" required>
+                  <option value="" disabled selected>Select timelineâ€¦</option>
+                  <option value="asap">As soon as possible (urgent)</option>
+                  <option value="2weeks">Within 2 weeks</option>
+                  <option value="month">Within 1 month</option>
+                  <option value="quarter">This quarter</option>
+                  <option value="exploring">Just exploring options</option>
+                </select>
+                <span class="form-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <button type="button" id="step2-next" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">
+                Continue to Details
+                <svg data-feather="arrow-right" width="18" height="18" aria-hidden="true"></svg>
+              </button>
+            </div>
+
+            <!-- â• STEP 3: Details & Budget â• -->
+            <div id="quote-step-3" style="display:none;" aria-hidden="true">
+              <div style="margin-bottom:2rem;">
+                <button type="button" id="back-to-2" style="display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;margin-bottom:1.25rem;transition:color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--muted)'">
+                  <svg data-feather="arrow-left" width="14" height="14" aria-hidden="true"></svg> Back
+                </button>
+                <h2 style="font-family:var(--font-display);font-size:1.75rem;font-weight:400;color:var(--ink);margin-bottom:0.4rem;">Tell Us More</h2>
+                <p style="font-size:0.875rem;color:var(--muted);">The more context you provide, the more tailored and accurate your proposal will be.</p>
+              </div>
+
+              <!-- Budget range -->
+              <div style="margin-bottom:1.75rem;">
+                <div class="form-label" style="margin-bottom:0.75rem;">Approximate Annual Budget (KES)</div>
+                <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;" role="group" aria-label="Budget range">
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="b1" value="under50k" />
+                    <label class="budget-option-label" for="b1">Under 50K</label>
+                  </div>
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="b2" value="50k-150k" />
+                    <label class="budget-option-label" for="b2">50K â€“ 150K</label>
+                  </div>
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="b3" value="150k-500k" />
+                    <label class="budget-option-label" for="b3">150K â€“ 500K</label>
+                  </div>
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="b4" value="500k-plus" />
+                    <label class="budget-option-label" for="b4">500K+</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Annual turnover -->
+              <div class="form-group" style="margin-bottom:1.25rem;">
+                <label class="form-label" for="q-turnover">Approximate Annual Turnover (KES)</label>
+                <select class="form-select" id="q-turnover" name="turnover">
+                  <option value="" disabled selected>Select rangeâ€¦</option>
+                  <option value="under5m">Under KES 5M</option>
+                  <option value="5m-50m">KES 5M â€“ 50M</option>
+                  <option value="50m-500m">KES 50M â€“ 500M</option>
+                  <option value="500m-2b">KES 500M â€“ 2B</option>
+                  <option value="over2b">Over KES 2B</option>
+                  <option value="prefer-not">Prefer not to say</option>
+                </select>
+              </div>
+
+              <!-- Current situation -->
+              <div class="form-group" style="margin-bottom:1.25rem;">
+                <label class="form-label" for="q-current">Current Accounting / Tax Provider</label>
+                <select class="form-select" id="q-current" name="current_provider">
+                  <option value="" disabled selected>Selectâ€¦</option>
+                  <option value="none">None â€” this is a new function</option>
+                  <option value="inhouse">In-house finance team</option>
+                  <option value="small-firm">Small local firm</option>
+                  <option value="mid-firm">Mid-size firm</option>
+                  <option value="big4">Big 4 firm</option>
+                  <option value="switching">Switching providers</option>
+                </select>
+              </div>
+
+              <!-- Message -->
+              <div class="form-group" style="margin-bottom:1.25rem;">
+                <label class="form-label" for="q-message">Brief Description of Your Needs <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                <textarea class="form-textarea" id="q-message" name="message" placeholder="Describe what you're looking for. Include any specific deadlines, challenges, or regulatory issues we should be aware ofâ€¦" required style="min-height:120px;" aria-required="true"></textarea>
+                <span class="form-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- How did you hear -->
+              <div class="form-group" style="margin-bottom:1.75rem;">
+                <label class="form-label" for="q-source">How Did You Hear About Us?</label>
+                <select class="form-select" id="q-source" name="source">
+                  <option value="" disabled selected>Selectâ€¦</option>
+                  <option value="google">Google / Search</option>
+                  <option value="referral">Colleague / Client Referral</option>
+                  <option value="linkedin">LinkedIn</option>
+                  <option value="event">Conference / Event</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Consent -->
+              <div style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1.75rem;">
+                <input type="checkbox" id="q-consent" name="consent" required style="width:16px;height:16px;margin-top:3px;accent-color:var(--primary);flex-shrink:0;cursor:pointer;" aria-required="true"/>
+                <label for="q-consent" style="font-size:0.82rem;color:var(--muted);line-height:1.6;cursor:pointer;">
+                  I agree to Brezoid Global Networks Limited's Privacy Policy. My data will be used solely to prepare and deliver a proposal.
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;justify-content:center;" id="quote-submit-btn">
+                <svg data-feather="send" width="18" height="18" aria-hidden="true"></svg>
+                Submit Quote Request
+              </button>
+
+              <p style="text-align:center;font-size:0.78rem;color:var(--muted);margin-top:1rem;line-height:1.6;">
+                <svg data-feather="lock" width="12" height="12" style="display:inline;vertical-align:middle;color:var(--muted);" aria-hidden="true"></svg>
+                Your submission is encrypted and handled in strict confidence.
+              </p>
+            </div>
+
+          </form>
+
+          <!-- Success state -->
+          <div class="quote-success" id="quote-success" aria-live="polite" role="status">
+            <div class="quote-success-ring" aria-hidden="true">
+              <div class="quote-success-icon">
+                <svg data-feather="check" width="28" height="28" style="color:var(--success);" aria-hidden="true"></svg>
+              </div>
+            </div>
+            <h2 style="font-family:var(--font-display);font-size:2rem;font-weight:400;color:var(--ink);margin-bottom:0.75rem;">Quote Request Received</h2>
+            <p style="color:var(--muted);font-size:0.95rem;max-width:400px;margin:0 auto 0.75rem;line-height:1.8;">Thank you. A Nexus partner will personally review your request and respond with a tailored, fixed-fee proposal within <strong style="color:var(--ink);">4 business hours</strong>.</p>
+            <p style="color:var(--muted);font-size:0.875rem;max-width:360px;margin:0 auto 2.5rem;line-height:1.7;">Check your inbox â€” including your spam folder. Reference: <span id="quote-ref" style="font-family:var(--font-mono);color:var(--primary);font-size:0.8rem;">NTX-XXXXXX</span></p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.875rem;justify-content:center;">
+              <a href="index.html" class="btn btn-primary">Back to Home</a>
+              <a href="index.html#services" class="btn btn-outline" style="border-color:var(--primary);color:var(--primary);">Explore Services</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /quote-layout -->
+
+  </main>
+
+  <!-- Minimal footer for conversion page -->
+  <footer style="background:var(--ink);padding:1.5rem 0;border-top:1px solid rgba(255,255,255,0.05);" role="contentinfo">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <div class="nav-logo-icon" aria-hidden="true"></div>
+          <div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div>
+        </div>
+        <p class="footer-copy">&copy; <span id="footer-year">2025</span> Brezoid Global Networks Limited Â· Privacy Â· Terms</p>
+        <div style="display:flex;align-items:center;gap:1.25rem;">
+          <a href="tel:+254700000000" style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.4);font-family:var(--font-mono);font-size:0.72rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+            <svg data-feather="phone" width="12" height="12" aria-hidden="true"></svg> +254 700 000 000
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* â•â•â• MULTI-STEP FORM LOGIC â•â•â• */
+    const steps = {
+      1: document.getElementById('quote-step-1'),
+      2: document.getElementById('quote-step-2'),
+      3: document.getElementById('quote-step-3'),
+    };
+    const progressFill = document.getElementById('progress-fill');
+    const stepWidths = { 1: '33%', 2: '66%', 3: '100%' };
+    let currentStep = 1;
+
+    function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+    function showError(group, msg) {
+      if (!group) return;
+      group.classList.add('has-error');
+      const err = group.querySelector('.form-error');
+      if (err) err.textContent = msg;
+    }
+    function clearError(group) {
+      if (!group) return;
+      group.classList.remove('has-error');
+      const err = group.querySelector('.form-error');
+      if (err) err.textContent = '';
+    }
+
+    function goToStep(n) {
+      // Hide all
+      Object.values(steps).forEach(s => { s.style.display = 'none'; s.setAttribute('aria-hidden', 'true'); });
+      // Show target
+      steps[n].style.display = 'block'; steps[n].removeAttribute('aria-hidden');
+      currentStep = n;
+      progressFill.style.width = stepWidths[n];
+
+      // Update step indicator
+      for (let i = 1; i <= 3; i++) {
+        const numEl = document.getElementById('step-num-' + i);
+        const labelEl = document.getElementById('step-label-' + i);
+        if (i < n) {
+          numEl.className = 'form-step-num done';
+          numEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        } else if (i === n) {
+          numEl.className = 'form-step-num active'; numEl.textContent = i;
+          if (labelEl) { labelEl.style.color = 'var(--primary)'; labelEl.style.fontWeight = '500'; }
+        } else {
+          numEl.className = 'form-step-num pending'; numEl.textContent = i;
+          if (labelEl) { labelEl.style.color = 'var(--muted)'; labelEl.style.fontWeight = '400'; }
+        }
+        const connector = document.getElementById('connector-' + i + '-' + (i + 1));
+        if (connector) connector.className = 'form-step-connector' + (i < n ? ' done' : '');
+      }
+
+      // Scroll to top of form on mobile
+      if (window.innerWidth < 1024) {
+        document.getElementById('quote-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.5 });
+    }
+
+    /* Step 1 â†’ 2 */
+    document.getElementById('step1-next').addEventListener('click', function() {
+      let valid = true;
+      const required = ['q-first','q-last','q-email','q-phone','q-company'];
+      required.forEach(id => {
+        const input = document.getElementById(id);
+        const group = input.closest('.form-group');
+        if (!input.value.trim()) { showError(group, 'Required.'); valid = false; }
+        else if (id === 'q-email' && !validateEmail(input.value)) { showError(group, 'Enter a valid email.'); valid = false; }
+        else clearError(group);
+      });
+      if (!valid) return;
+      goToStep(2);
+    });
+
+    /* Step 2 â†’ 3 */
+    document.getElementById('step2-next').addEventListener('click', function() {
+      const checked = document.querySelectorAll('input[name="services"]:checked');
+      const sErr = document.getElementById('services-error');
+      if (checked.length === 0) { if (sErr) sErr.textContent = 'Please select at least one service.'; return; }
+      if (sErr) sErr.textContent = '';
+
+      const urgency = document.getElementById('q-urgency');
+      const urgGroup = urgency.closest('.form-group');
+      if (!urgency.value) { showError(urgGroup, 'Please select a timeline.'); return; }
+      clearError(urgGroup);
+
+      goToStep(3);
+    });
+
+    /* Back buttons */
+    document.getElementById('back-to-1').addEventListener('click', () => goToStep(1));
+    document.getElementById('back-to-2').addEventListener('click', () => goToStep(2));
+
+    /* Step 3 submit */
+    document.getElementById('quote-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+
+      const msgGroup = document.getElementById('q-message').closest('.form-group');
+      if (!document.getElementById('q-message').value.trim()) { showError(msgGroup, 'Please describe your needs.'); valid = false; } else clearError(msgGroup);
+
+      const consent = document.getElementById('q-consent');
+      if (!consent.checked) { consent.style.outline = '2px solid var(--error)'; consent.style.outlineOffset = '2px'; valid = false; }
+      else { consent.style.outline = ''; }
+
+      if (!valid) return;
+
+      const btn = document.getElementById('quote-submit-btn');
+      if (btn) { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg> Submittingâ€¦'; btn.disabled = true; }
+
+      setTimeout(() => {
+        this.style.display = 'none';
+        const success = document.getElementById('quote-success');
+        const refEl = document.getElementById('quote-ref');
+        if (refEl) refEl.textContent = 'NTX-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        if (success) {
+          success.style.display = 'block';
+          if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.5 });
+          if (typeof gsap !== 'undefined') gsap.fromTo(success, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' });
+        }
+      }, 1400);
+    });
+
+    /* Live clear error on input */
+    document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(input => {
+      input.addEventListener('input', () => {
+        const g = input.closest('.form-group');
+        if (g) g.classList.remove('has-error');
+      });
+    });
+  </script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
+

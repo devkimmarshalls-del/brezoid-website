@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nexus Bookkeeping Services â€” accurate transaction recording, payroll processing, bank reconciliation and audit-ready books for Kenyan businesses." />
+  <title>Bookkeeping | Brezoid Global Networks Limited</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{primary:{DEFAULT:'#113766',dark:'#0b2548',light:'#1a4d8f'},accent:{DEFAULT:'#CC9F46',dark:'#a87d2e',light:'#e0b96a'}},fontFamily:{display:['"Cormorant Garamond"','Georgia','serif'],body:['"DM Sans"','sans-serif'],mono:['"DM Mono"','monospace']}}}}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <style>
+    .pkg-card {
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      background: var(--white);
+      position: relative;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .pkg-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .pkg-card.featured {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.02);
+    }
+    .pkg-card.featured:hover { transform: scale(1.02) translateY(-4px); }
+    .pkg-popular {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.875rem;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .pkg-price {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--primary);
+    }
+    .pkg-card.featured .pkg-price { color: var(--white); }
+    .pkg-card.featured .pkg-title { color: var(--white); }
+    .pkg-card.featured .pkg-desc { color: rgba(255,255,255,0.6); }
+    .pkg-card.featured .pkg-feature { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.1); }
+    .pkg-card.featured .pkg-feature svg { color: var(--accent); }
+    .pkg-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.625rem;
+      padding: 0.625rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.85rem;
+      color: var(--body-text);
+    }
+    .pkg-feature:last-of-type { border-bottom: none; }
+    .pkg-feature svg { color: var(--success); flex-shrink: 0; margin-top: 2px; }
+    .software-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+      transition: all 0.2s;
+    }
+    .software-badge:hover { border-color: var(--primary); color: var(--primary); box-shadow: var(--shadow-xs); }
+    .software-badge .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .deliverable-card{padding:1.5rem;border:1px solid var(--border-soft);border-radius:12px;background:var(--white);transition:all 0.25s ease;display:flex;gap:1rem;align-items:flex-start;}
+    .deliverable-card:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);}
+    .deliverable-icon{width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.25s;}
+    .deliverable-icon svg{color:var(--primary);}
+    .deliverable-card:hover .deliverable-icon{background:var(--primary);}
+    .deliverable-card:hover .deliverable-icon svg{color:var(--white);}
+    .related-card{display:flex;align-items:center;gap:1rem;padding:1.25rem;border:1px solid var(--border);border-radius:12px;background:var(--white);text-decoration:none;transition:all 0.25s ease;}
+    .related-card:hover{border-color:var(--primary);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
+    .step-line { position: relative; }
+    .step-line::after { content:''; position:absolute; top:36px; left:18px; width:1px; height:calc(100% - 36px); background:linear-gradient(180deg,var(--accent) 0%,transparent 100%); opacity:0.25; }
+    .step-line:last-child::after { display:none; }
+  </style>
+</head>
+<body class="font-body">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="page-transition-overlay" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="nav-solid" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></a>
+      <ul class="nav-menu" role="list">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../about.html" class="nav-link">About Us</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Services <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg></button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="tax-agent.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="file-text" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Agency</span><span class="nav-dropdown-desc">KRA compliance &amp; filing</span></span></a>
+            <a href="auditing.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="search" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Auditing &amp; Assurance</span><span class="nav-dropdown-desc">Statutory &amp; internal audits</span></span></a>
+            <a href="bookkeeping.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="book-open" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Bookkeeping</span><span class="nav-dropdown-desc">Accurate financial records</span></span></a>
+            <a href="accounting.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="bar-chart-2" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Accounting</span><span class="nav-dropdown-desc">IFRS-compliant reporting</span></span></a>
+            <a href="tax-advisory.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="briefcase" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Advisory</span><span class="nav-dropdown-desc">Strategic tax planning</span></span></a>
+            <a href="business-registration.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="award" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Business Registration</span><span class="nav-dropdown-desc">Company &amp; NGO setup</span></span></a>
+            <a href="forensic.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Forensic Accounting</span><span class="nav-dropdown-desc">Fraud detection &amp; litigation</span></span></a>
+            <a href="international-tax.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">International Tax</span><span class="nav-dropdown-desc">Cross-border structuring</span></span></a>
+          </div>
+        </li>
+        <li><a href="../contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:1rem;margin-left:1rem;">
+        <a href="tel:+254700000000" class="hidden lg:flex items-center gap-2" style="color:var(--muted);font-family:var(--font-mono);font-size:0.78rem;" aria-label="Call us"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>+254 700 000 000</a>
+        <a href="../quote.html" class="nav-cta nav-cta-solid">Get a Quote</a>
+        <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div style="margin-bottom:2rem;"><div class="nav-logo"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark" style="color:var(--primary)">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></div></div>
+    <a href="../index.html" class="nav-mobile-link">Home</a><a href="../about.html" class="nav-mobile-link">About Us</a>
+    <button class="nav-mobile-link w-full text-left" data-mobile-accordion="#mob-svc" aria-expanded="false">Services <svg data-feather="chevron-down" width="16" height="16" data-accordion-icon aria-hidden="true"></svg></button>
+    <div id="mob-svc" class="nav-mobile-sub"><a href="tax-agent.html" class="nav-mobile-sub-link">Tax Agency</a><a href="auditing.html" class="nav-mobile-sub-link">Auditing</a><a href="bookkeeping.html" class="nav-mobile-sub-link">Bookkeeping</a><a href="accounting.html" class="nav-mobile-sub-link">Accounting</a><a href="tax-advisory.html" class="nav-mobile-sub-link">Tax Advisory</a><a href="business-registration.html" class="nav-mobile-sub-link">Business Registration</a><a href="forensic.html" class="nav-mobile-sub-link">Forensic</a><a href="international-tax.html" class="nav-mobile-sub-link">International Tax</a></div>
+    <a href="../contact.html" class="nav-mobile-link">Contact</a>
+    <div class="nav-mobile-divider"></div>
+    <div class="nav-mobile-cta"><a href="../quote.html" class="btn btn-primary" style="width:100%;justify-content:center;">Get a Free Quote</a></div>
+  </div>
+
+  <main id="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header" style="padding-top:calc(var(--nav-height-scrolled) + 4rem);">
+      <div class="page-header-bg" aria-hidden="true"></div>
+      <div class="page-header-line" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div style="max-width:680px;">
+          <div class="reveal" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;">
+            <span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>
+            <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(204,159,70,0.8);">Clean Books. Every Month.</span>
+          </div>
+          <h1 class="reveal" style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:1.25rem;" data-delay="0.05">
+            Professional<br /><em style="color:var(--accent);font-style:italic;">Bookkeeping Services</em>
+          </h1>
+          <p class="reveal text-lead" style="color:rgba(255,255,255,0.6);max-width:520px;" data-delay="0.1">Accurate, timely transaction recording, payroll processing, and bank reconciliation â€” keeping your books audit-ready and your business decisions data-driven.</p>
+          <nav aria-label="Breadcrumb" class="reveal" style="margin-top:2rem;" data-delay="0.15">
+            <ol style="display:flex;align-items:center;gap:0.5rem;font-family:var(--font-mono);font-size:0.68rem;color:rgba(255,255,255,0.4);" role="list">
+              <li><a href="../index.html" class="breadcrumb-link">Home</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li><a href="index.html" class="breadcrumb-link">Services</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li style="color:var(--accent);" aria-current="page">Bookkeeping</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="section bg-white" aria-labelledby="overview-h">
+      <div class="container">
+        <div class="rg-sidebar">
+
+          <div style="grid-column:span 2 / span 2;">
+            <div class="reveal">
+              <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;"><span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>The Foundation of Good Finance</span>
+              <h2 class="heading-section" id="overview-h">Books That Are Always<br /><em style="font-style:italic;color:var(--primary-light);">Ready. Never Rushed.</em></h2>
+              <hr class="section-rule" />
+            </div>
+            <div class="reveal" data-delay="0.07">
+              <p style="font-size:1rem;line-height:1.9;color:var(--body-text);margin-bottom:1.2rem;">Poor bookkeeping doesn't just cause stress at year-end â€” it distorts business decisions every single day. When your records are inaccurate, you can't trust your margins, your cash flow projections fail, and your auditor spends expensive time untangling transactions instead of reviewing them.</p>
+              <p style="font-size:1rem;line-height:1.9;color:var(--body-text);margin-bottom:1.2rem;">Nexus bookkeeping is built differently. We assign a dedicated bookkeeper to your account â€” someone who learns your chart of accounts, your supplier relationships, and your reporting calendar. Monthly close happens on schedule, every month, regardless of transaction volume.</p>
+              <p style="font-size:1rem;line-height:1.9;color:var(--body-text);">We work across QuickBooks, Xero, Sage, and bespoke ERP systems. If you're still on spreadsheets, we'll migrate you cleanly onto a cloud platform that scales with your business â€” without losing a single historical record.</p>
+            </div>
+
+            <!-- Software row -->
+            <div class="reveal" data-delay="0.12" style="margin-top:2rem;">
+              <p style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Software We Work With</p>
+              <div style="display:flex;flex-wrap:wrap;gap:0.625rem;">
+                <span class="software-badge"><span class="dot" style="background:#2CA01C;"></span>QuickBooks Online</span>
+                <span class="software-badge"><span class="dot" style="background:#13B5EA;"></span>Xero</span>
+                <span class="software-badge"><span class="dot" style="background:#00A550;"></span>Sage Business Cloud</span>
+                <span class="software-badge"><span class="dot" style="background:#F25022;"></span>Microsoft Dynamics</span>
+                <span class="software-badge"><span class="dot" style="background:#0078D4;"></span>Odoo</span>
+                <span class="software-badge"><span class="dot" style="background:#6B4FBB;"></span>Wave (SME)</span>
+                <span class="software-badge"><span class="dot" style="background:#888;"></span>Custom ERP / Excel</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="reveal" data-delay="0.1" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+            <h3 style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;">Service Facts</h3>
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">Starting from</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--primary);font-family:var(--font-mono);">KES 5,000 / mo</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">Frequency</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);">Monthly (or weekly)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">Monthly close</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);">By 5th of next month</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:0.875rem;border-bottom:1px solid var(--border-soft);">
+                <span style="font-size:0.82rem;color:var(--muted);">Dedicated contact</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);">Named bookkeeper</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="font-size:0.82rem;color:var(--muted);">Contract</span>
+                <span style="font-size:0.82rem;font-weight:500;color:var(--ink);">Monthly rolling</span>
+              </div>
+            </div>
+            <a href="../quote.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;">Get a Fixed-Fee Quote</a>
+            <a href="tel:+254700000000" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:0.5rem;font-size:0.8rem;"><svg data-feather="phone" width="14" height="14" aria-hidden="true"></svg>Call a Bookkeeping Specialist</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERABLES -->
+    <section class="section" style="background:var(--surface);" aria-labelledby="deliverables-h">
+      <div class="container">
+        <div class="section-header reveal" style="margin-bottom:2.5rem;">
+          <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1rem;"><span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>What's Included</span>
+          <h2 class="heading-section" id="deliverables-h">Every Month,<br /><em style="font-style:italic;color:var(--primary-light);">Without Exception.</em></h2>
+          <hr class="section-rule" />
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:1rem;">
+          <div class="deliverable-card reveal" data-delay="0.00"><div class="deliverable-icon"><svg data-feather="edit-3" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Transaction Recording &amp; Coding</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Every bank transaction, receipt, and invoice captured, classified, and posted against the correct account code.</p></div></div>
+          <div class="deliverable-card reveal" data-delay="0.06"><div class="deliverable-icon"><svg data-feather="refresh-cw" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Bank &amp; M-Pesa Reconciliation</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">All bank accounts and M-Pesa wallets reconciled to the cent each month â€” no unreconciled items carried forward.</p></div></div>
+          <div class="deliverable-card reveal" data-delay="0.12"><div class="deliverable-icon"><svg data-feather="users" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Payroll Processing</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Monthly payroll computation including basic, allowances, PAYE, NHIF, NSSF, and NITA deductions. Payslips delivered digitally.</p></div></div>
+          <div class="deliverable-card reveal" data-delay="0.18"><div class="deliverable-icon"><svg data-feather="credit-card" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Accounts Payable Management</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Supplier invoices coded, aged payables report produced, and payment schedules prepared for your approval.</p></div></div>
+          <div class="deliverable-card reveal" data-delay="0.24"><div class="deliverable-icon"><svg data-feather="trending-up" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Accounts Receivable Tracking</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Customer invoices recorded, aged debtors report maintained, and overdue balance alerts sent to your team.</p></div></div>
+          <div class="deliverable-card reveal" data-delay="0.30"><div class="deliverable-icon"><svg data-feather="file-text" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Monthly Trial Balance</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Reviewed, balanced trial balance delivered by the 5th of the following month â€” ready for management accounts preparation.</p></div></div>
+          <div class="deliverable-card reveal" data-delay="0.36"><div class="deliverable-icon"><svg data-feather="package" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Fixed Assets Register</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Maintained asset register with depreciation schedules aligned to your accounting policy and KRA capital deduction rules.</p></div></div>
+          <div class="deliverable-card reveal" data-delay="0.42"><div class="deliverable-icon"><svg data-feather="lock" width="18" height="18" aria-hidden="true"></svg></div><div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Secure Document Storage</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">All source documents digitised and stored in your dedicated secure portal â€” accessible any time, fully searchable.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section class="section bg-white" aria-labelledby="packages-h">
+      <div class="container">
+        <div class="section-header center reveal" style="margin-bottom:2.5rem;">
+          <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:1rem;">Transparent Pricing</span>
+          <h2 class="heading-section" id="packages-h" style="text-align:center;">Simple Monthly <em style="font-style:italic;color:var(--primary-light);">Packages</em></h2>
+          <hr class="section-rule center" />
+          <p class="text-lead" style="text-align:center;margin-top:1rem;">All packages are fixed-fee, monthly rolling â€” no lock-in contracts, no hidden extras.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1.5rem;align-items:start;">
+
+          <!-- Starter -->
+          <div class="pkg-card reveal" data-delay="0.00">
+            <p style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.875rem;" class="pkg-title">Starter</p>
+            <div class="pkg-price">KES 5K<span style="font-size:1rem;color:var(--muted);font-family:var(--font-body);font-weight:300;">/mo</span></div>
+            <p class="pkg-desc" style="font-size:0.82rem;color:var(--muted);margin:0.75rem 0 1.25rem;line-height:1.65;">Ideal for sole traders and micro-businesses with up to 80 transactions/month.</p>
+            <div style="flex:1;">
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Transaction recording (up to 80/mo)</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>1 bank account reconciliation</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Monthly trial balance</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Payroll for up to 5 staff</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Digital document storage</div>
+            </div>
+            <a href="../quote.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:1.5rem;border-color:var(--primary);color:var(--primary);">Get Started</a>
+          </div>
+
+          <!-- Growth (Featured) -->
+          <div class="pkg-card featured reveal" data-delay="0.08">
+            <span class="pkg-popular">Most Popular</span>
+            <p style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.875rem;" class="pkg-title">Growth</p>
+            <div class="pkg-price">KES 15K<span style="font-size:1rem;color:rgba(255,255,255,0.55);font-family:var(--font-body);font-weight:300;">/mo</span></div>
+            <p class="pkg-desc" style="font-size:0.82rem;margin:0.75rem 0 1.25rem;line-height:1.65;">For growing SMEs with up to 300 transactions/month and a small team.</p>
+            <div style="flex:1;">
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Transactions up to 300/month</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Up to 3 bank/M-Pesa accounts</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Payroll for up to 20 staff</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Accounts payable &amp; receivable</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Fixed asset register</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Monthly management summary</div>
+            </div>
+            <a href="../quote.html" class="btn btn-accent" style="width:100%;justify-content:center;margin-top:1.5rem;">Get Started</a>
+          </div>
+
+          <!-- Corporate -->
+          <div class="pkg-card reveal" data-delay="0.16">
+            <p style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.875rem;" class="pkg-title">Corporate</p>
+            <div class="pkg-price">KES 35K<span style="font-size:1rem;color:var(--muted);font-family:var(--font-body);font-weight:300;">/mo</span></div>
+            <p class="pkg-desc" style="font-size:0.82rem;color:var(--muted);margin:0.75rem 0 1.25rem;line-height:1.65;">For established businesses with unlimited transactions and complex requirements.</p>
+            <div style="flex:1;">
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Unlimited transactions</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>All bank &amp; M-Pesa accounts</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Payroll â€” unlimited staff</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Multi-currency bookkeeping</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>ERP integration &amp; support</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Dedicated senior bookkeeper</div>
+              <div class="pkg-feature"><svg data-feather="check" width="14" height="14" aria-hidden="true"></svg>Weekly close &amp; reporting</div>
+            </div>
+            <a href="../quote.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:1.5rem;border-color:var(--primary);color:var(--primary);">Get Started</a>
+          </div>
+
+        </div>
+        <p style="text-align:center;font-size:0.78rem;color:var(--muted);margin-top:1.5rem;" class="reveal">All prices exclude VAT. Custom pricing available for NGOs, multi-entity groups, and project-based engagements.</p>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section" style="background:var(--surface);" aria-labelledby="process-h">
+      <div class="container">
+        <div class="rg-2">
+
+          <div>
+            <div class="reveal">
+              <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;"><span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>How It Works</span>
+              <h2 class="heading-section" id="process-h">Our Monthly<br /><em style="font-style:italic;color:var(--primary-light);">Bookkeeping Cycle</em></h2>
+              <hr class="section-rule" />
+              <p class="text-lead" style="margin-bottom:2rem;">A predictable, repeatable process so nothing ever slips through the cracks.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0;" class="reveal" data-delay="0.06">
+              <div class="step-line" style="display:flex;gap:1.25rem;padding-bottom:1.75rem;">
+                <div style="width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.7rem;color:var(--ink);font-weight:600;flex-shrink:0;z-index:1;">01</div>
+                <div style="padding-top:4px;"><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Data Collection (1stâ€“3rd)</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">You share bank statements, invoices, and receipts via our secure portal or email. We send you a simple monthly checklist so nothing is missed.</p></div>
+              </div>
+              <div class="step-line" style="display:flex;gap:1.25rem;padding-bottom:1.75rem;">
+                <div style="width:36px;height:36px;background:var(--primary-muted);border:1.5px solid var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.7rem;color:var(--primary);font-weight:600;flex-shrink:0;z-index:1;">02</div>
+                <div style="padding-top:4px;"><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Posting &amp; Reconciliation (3rdâ€“7th)</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Your bookkeeper posts all transactions, reconciles every account, and flags any anomalies or missing documents for your attention.</p></div>
+              </div>
+              <div class="step-line" style="display:flex;gap:1.25rem;padding-bottom:1.75rem;">
+                <div style="width:36px;height:36px;background:var(--primary-muted);border:1.5px solid var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.7rem;color:var(--primary);font-weight:600;flex-shrink:0;z-index:1;">03</div>
+                <div style="padding-top:4px;"><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Review &amp; Query Resolution (7thâ€“9th)</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">A senior reviewer checks all postings. Any queries are resolved with you directly â€” no assumptions, no guesswork.</p></div>
+              </div>
+              <div class="step-line" style="display:flex;gap:1.25rem;padding-bottom:1.75rem;">
+                <div style="width:36px;height:36px;background:var(--primary-muted);border:1.5px solid var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.7rem;color:var(--primary);font-weight:600;flex-shrink:0;z-index:1;">04</div>
+                <div style="padding-top:4px;"><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Monthly Close &amp; Reporting (by 10th)</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Books closed, trial balance delivered, and your monthly summary report shared â€” ready for management account preparation or tax filing.</p></div>
+              </div>
+              <div style="display:flex;gap:1.25rem;">
+                <div style="width:36px;height:36px;background:var(--primary-muted);border:1.5px solid var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:0.7rem;color:var(--primary);font-weight:600;flex-shrink:0;z-index:1;">05</div>
+                <div style="padding-top:4px;"><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;">Archive &amp; Audit Trail</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">All documents archived digitally with a full audit trail maintained â€” searchable, secure, and ready for any KRA or external audit request.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Why Nexus bookkeeping -->
+          <div>
+            <div class="reveal" data-delay="0.05">
+              <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;"><span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>Why It Matters</span>
+              <h3 style="font-family:var(--font-display);font-size:clamp(1.5rem,2.5vw,2rem);font-weight:400;color:var(--ink);margin-bottom:0.875rem;">What Clean Books<br /><em style="font-style:italic;color:var(--primary-light);">Actually Give You</em></h3>
+              <hr class="section-rule" />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:1.25rem;" class="reveal" data-delay="0.1">
+              <div style="display:flex;gap:1rem;padding:1.25rem;background:var(--white);border:1px solid var(--border-soft);border-radius:12px;">
+                <div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="zap" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div>
+                <div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Faster, Cheaper Audits</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Auditors spend less time reconstructing records and more time reviewing them â€” reducing your audit fee by up to 35%.</p></div>
+              </div>
+              <div style="display:flex;gap:1rem;padding:1.25rem;background:var(--white);border:1px solid var(--border-soft);border-radius:12px;">
+                <div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="bar-chart-2" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div>
+                <div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Better Business Decisions</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Real-time visibility into your cash position, margins, and outstanding balances â€” without waiting for year-end.</p></div>
+              </div>
+              <div style="display:flex;gap:1rem;padding:1.25rem;background:var(--white);border:1px solid var(--border-soft);border-radius:12px;">
+                <div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="shield" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div>
+                <div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">KRA Audit Confidence</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Clean, reconciled books with a full audit trail eliminate most KRA query findings before they even arise.</p></div>
+              </div>
+              <div style="display:flex;gap:1rem;padding:1.25rem;background:var(--white);border:1px solid var(--border-soft);border-radius:12px;">
+                <div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="dollar-sign" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div>
+                <div><h4 style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Easier Bank Financing</h4><p style="font-size:0.82rem;color:var(--muted);line-height:1.7;">Lenders require audited accounts with reliable bookkeeping underneath. Clean books shorten your loan processing time significantly.</p></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- RELATED SERVICES -->
+    <section class="section--sm" style="background:var(--surface-warm);" aria-labelledby="related-h">
+      <div class="container">
+        <h2 class="reveal" id="related-h" style="font-family:var(--font-display);font-size:1.5rem;font-weight:400;color:var(--ink);margin-bottom:1.5rem;">Commonly Paired <em style="font-style:italic;color:var(--primary-light);">Services</em></h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;">
+          <a href="accounting.html" class="related-card reveal" data-delay="0.00"><div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="bar-chart-2" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div><div><p style="font-size:0.88rem;font-weight:500;color:var(--ink);">Accounting</p><p style="font-size:0.78rem;color:var(--muted);">Turn your books into board-ready statements.</p></div><svg data-feather="arrow-right" width="14" height="14" style="color:var(--accent);flex-shrink:0;margin-left:auto;" aria-hidden="true"></svg></a>
+          <a href="tax-agent.html" class="related-card reveal" data-delay="0.06"><div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="file-text" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div><div><p style="font-size:0.88rem;font-weight:500;color:var(--ink);">Tax Agency</p><p style="font-size:0.78rem;color:var(--muted);">Accurate books mean accurate tax returns.</p></div><svg data-feather="arrow-right" width="14" height="14" style="color:var(--accent);flex-shrink:0;margin-left:auto;" aria-hidden="true"></svg></a>
+          <a href="auditing.html" class="related-card reveal" data-delay="0.12"><div style="width:40px;height:40px;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg data-feather="search" width="18" height="18" style="color:var(--primary);" aria-hidden="true"></svg></div><div><p style="font-size:0.88rem;font-weight:500;color:var(--ink);">Auditing</p><p style="font-size:0.78rem;color:var(--muted);">Well-kept books make audits faster &amp; cheaper.</p></div><svg data-feather="arrow-right" width="14" height="14" style="color:var(--accent);flex-shrink:0;margin-left:auto;" aria-hidden="true"></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);padding:5rem 0;position:relative;overflow:hidden;" aria-labelledby="svc-cta-h">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(204,159,70,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(204,159,70,0.05) 1px,transparent 1px);background-size:48px 48px;" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;text-align:center;">
+        <h2 class="heading-section reveal" id="svc-cta-h" style="color:var(--white);margin-bottom:1rem;">Get Books You Can Actually Trust</h2>
+        <p class="reveal" data-delay="0.06" style="color:rgba(255,255,255,0.6);max-width:460px;margin:0 auto 2.5rem;font-size:1rem;line-height:1.8;">Start with a free consultation. We'll review your current bookkeeping setup and give you an honest assessment â€” no obligation.</p>
+        <div class="reveal" data-delay="0.1" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+          <a href="../quote.html" class="btn btn-accent btn-lg"><svg data-feather="arrow-right-circle" width="18" height="18" aria-hidden="true"></svg>Get a Fixed-Fee Quote</a>
+          <a href="../contact.html" class="btn btn-outline-light btn-lg">Speak to a Specialist</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top"><div class="container"><div class="footer-grid">
+      <div><div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></div><p class="footer-brand-desc">Kenya's trusted partner for tax advisory, statutory audits, and financial compliance.</p><a href="tel:+254700000000" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>+254 700 000 000</a><br/><a href="mailto:info@nexustax.co.ke" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;"><svg data-feather="mail" width="13" height="13" aria-hidden="true"></svg>info@nexustax.co.ke</a></div>
+      <div><h3 class="footer-heading">Services</h3><ul class="footer-links" role="list"><li><a href="tax-agent.html" class="footer-link">Tax Agency</a></li><li><a href="auditing.html" class="footer-link">Auditing &amp; Assurance</a></li><li><a href="bookkeeping.html" class="footer-link">Bookkeeping</a></li><li><a href="accounting.html" class="footer-link">Accounting</a></li><li><a href="tax-advisory.html" class="footer-link">Tax Advisory</a></li><li><a href="forensic.html" class="footer-link">Forensic Accounting</a></li><li><a href="international-tax.html" class="footer-link">International Tax</a></li></ul></div>
+      <div><h3 class="footer-heading">Company</h3><ul class="footer-links" role="list"><li><a href="../about.html" class="footer-link">About Us</a></li><li><a href="../contact.html" class="footer-link">Contact</a></li><li><a href="../quote.html" class="footer-link">Get a Quote</a></li></ul></div>
+      <div><h3 class="footer-heading">Tax Updates</h3><p style="font-size:0.82rem;color:rgba(255,255,255,0.42);line-height:1.75;margin-bottom:1.25rem;">KRA alerts &amp; compliance updates to your inbox.</p><form id="nf" style="display:flex;gap:0.5rem;" novalidate><input type="email" placeholder="Your email" style="flex:1;padding:0.7rem 0.875rem;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:6px;color:white;font-size:0.85rem;font-family:var(--font-body);outline:none;" aria-label="Email" required/><button type="submit" class="btn btn-accent" style="padding:0.7rem 0.875rem;" aria-label="Subscribe"><svg data-feather="arrow-right" width="16" height="16" aria-hidden="true"></svg></button></form></div>
+    </div></div></div>
+    <div class="container"><div class="footer-bottom"><p class="footer-copy">&copy; <span id="fy">2025</span> Brezoid Global Networks Limited. All rights reserved.</p><nav aria-label="Legal" style="display:flex;gap:1.25rem;"><a href="../privacy.html" class="footer-link" style="font-family:var(--font-mono);font-size:0.66rem;">Privacy</a><a href="../terms.html" class="footer-link" style="font-family:var(--font-mono);font-size:0.66rem;">Terms</a></nav><div class="footer-social" role="list"><a href="#" class="footer-social-link" aria-label="LinkedIn" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></div></div></div>
+  </footer>
+  <button class="back-to-top" aria-label="Back to top"><svg data-feather="arrow-up" width="18" height="18" aria-hidden="true"></svg></button>
+  <script>
+    document.getElementById('fy').textContent=new Date().getFullYear();
+    document.getElementById('nf').addEventListener('submit',function(e){e.preventDefault();const i=this.querySelector('input'),b=this.querySelector('button');if(!i||!i.value.trim())return;b.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';b.style.background='#1a8a5c';i.value='';i.placeholder="Subscribed!";i.disabled=true;});
+  </script>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
+
+

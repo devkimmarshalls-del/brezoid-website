@@ -1,0 +1,691 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact Brezoid Global Networks Limited â€” reach our Nairobi office by phone, email, or form. We respond within 4 business hours." />
+  <title>Contact Us | Brezoid Global Networks Limited</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#113766', dark: '#0b2548', light: '#1a4d8f' },
+            accent:  { DEFAULT: '#CC9F46', dark: '#a87d2e', light: '#e0b96a' },
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body:    ['"DM Sans"', 'sans-serif'],
+            mono:    ['"DM Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* â”€â”€ Contact info card â”€â”€ */
+    .contact-info-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.125rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      background: var(--white);
+      transition: all 0.25s ease;
+    }
+    .contact-info-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+    .contact-info-icon {
+      width: 44px; height: 44px;
+      background: var(--primary-muted);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s;
+    }
+    .contact-info-icon svg { color: var(--primary); }
+    .contact-info-card:hover .contact-info-icon { background: var(--primary); }
+    .contact-info-card:hover .contact-info-icon svg { color: var(--white); }
+
+    /* â”€â”€ Map placeholder â”€â”€ */
+    .map-placeholder {
+      width: 100%;
+      aspect-ratio: 16/7;
+      background: linear-gradient(135deg, #e8edf4 0%, #dce4ef 100%);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .map-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(17,55,102,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17,55,102,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .map-pin-anim {
+      position: relative;
+      z-index: 1;
+      animation: pinBounce 2s ease-in-out infinite;
+    }
+    @keyframes pinBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    .map-pin-shadow {
+      width: 24px; height: 6px;
+      background: rgba(17,55,102,0.15);
+      border-radius: 50%;
+      margin: 4px auto 0;
+      animation: shadowPulse 2s ease-in-out infinite;
+    }
+    @keyframes shadowPulse {
+      0%, 100% { transform: scaleX(1); opacity: 0.15; }
+      50%       { transform: scaleX(0.7); opacity: 0.08; }
+    }
+
+    /* â”€â”€ Hours row â”€â”€ */
+    .hours-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.875rem;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: var(--body-text); font-weight: 400; }
+    .hours-time { color: var(--ink); font-weight: 500; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.04em; }
+    .hours-closed { color: var(--muted); font-style: italic; }
+    .hours-today { background: var(--primary-muted); border-radius: 8px; padding: 0.875rem 0.75rem; margin: 0 -0.75rem; border-bottom: none; }
+
+    /* â”€â”€ Form states â”€â”€ */
+    .form-group.has-error .form-input,
+    .form-group.has-error .form-select,
+    .form-group.has-error .form-textarea { border-color: var(--error); }
+    .form-group.is-valid .form-input,
+    .form-group.is-valid .form-select,
+    .form-group.is-valid .form-textarea { border-color: var(--success); }
+
+    /* â”€â”€ Success message â”€â”€ */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3.5rem 2rem;
+    }
+    .form-success-icon {
+      width: 72px; height: 72px;
+      background: rgba(26,138,92,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+  </style>
+</head>
+<body class="font-body">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="page-transition-overlay" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="nav-solid" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Brezoid Global Networks Limited â€” Home">
+        <div class="nav-logo-icon" aria-hidden="true"></div>
+        <div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div>
+      </a>
+      <ul class="nav-menu" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Services <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg></button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="file-text" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Agency</span><span class="nav-dropdown-desc">KRA compliance &amp; filing</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="search" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Auditing &amp; Assurance</span><span class="nav-dropdown-desc">Statutory &amp; internal audits</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="book-open" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Bookkeeping</span><span class="nav-dropdown-desc">Accurate financial records</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="bar-chart-2" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Accounting</span><span class="nav-dropdown-desc">IFRS-compliant reporting</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="briefcase" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Advisory</span><span class="nav-dropdown-desc">Strategic tax planning</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Forensic Accounting</span><span class="nav-dropdown-desc">Fraud detection &amp; litigation</span></span></a>
+            <a href="index.html#services" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">International Tax</span><span class="nav-dropdown-desc">Cross-border structuring</span></span></a>
+          </div>
+        </li>
+        <li><a href="contact.html" class="nav-link" aria-current="page">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:1rem;margin-left:1rem;">
+        <a href="tel:+254700000000" class="hidden lg:flex items-center gap-2" style="color:var(--muted);font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.04em;" aria-label="Call us"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg> +254 700 000 000</a>
+        <a href="quote.html" class="nav-cta" style="border-color:var(--primary);color:var(--primary);" onmouseover="this.style.background='var(--primary)';this.style.color='white';" onmouseout="this.style.background='transparent';this.style.color='var(--primary)';">Get a Quote</a>
+        <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div style="margin-bottom:2rem;"><div class="nav-logo"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark" style="color:var(--primary)">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></div></div>
+    <a href="index.html" class="nav-mobile-link">Home</a>
+    <a href="about.html" class="nav-mobile-link">About Us</a>
+    <button class="nav-mobile-link w-full text-left" data-mobile-accordion="#mobile-services" aria-expanded="false">Services <svg data-feather="chevron-down" width="16" height="16" data-accordion-icon aria-hidden="true"></svg></button>
+    <div id="mobile-services" class="nav-mobile-sub">
+      <a href="index.html#services" class="nav-mobile-sub-link">Tax Agency</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Auditing &amp; Assurance</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Bookkeeping</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Accounting</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Tax Advisory</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">Forensic Accounting</a>
+      <a href="index.html#services" class="nav-mobile-sub-link">International Tax</a>
+    </div>
+    <a href="contact.html" class="nav-mobile-link" aria-current="page">Contact</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="tel:+254700000000" class="flex items-center gap-3 py-3 text-sm" style="color:var(--body-text);"><svg data-feather="phone" width="16" height="16" aria-hidden="true"></svg>+254 700 000 000</a>
+    <div class="nav-mobile-cta"><a href="quote.html" class="btn btn-primary" style="width:100%;justify-content:center;">Get a Free Quote</a></div>
+  </div>
+
+  <main id="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header" style="padding-top:calc(var(--nav-height-scrolled) + 4rem);">
+      <div class="page-header-bg" aria-hidden="true"></div>
+      <div class="page-header-line" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div style="max-width:640px;">
+          <div class="reveal" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;">
+            <span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>
+            <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(204,159,70,0.8);">We Respond in 4 Hours</span>
+          </div>
+          <h1 class="reveal" style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.25rem;" data-delay="0.05">
+            Get in Touch<br /><em style="color:var(--accent);font-style:italic;">With Our Team</em>
+          </h1>
+          <p class="reveal text-lead" style="color:rgba(255,255,255,0.6);max-width:480px;" data-delay="0.1">
+            Whether you have a tax query, need an audit proposal, or simply want to explore how Nexus can help â€” we'd love to hear from you.
+          </p>
+          <nav aria-label="Breadcrumb" class="reveal" style="margin-top:2rem;" data-delay="0.15">
+            <ol style="display:flex;align-items:center;gap:0.5rem;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.06em;color:rgba(255,255,255,0.4);" role="list">
+              <li><a href="index.html" style="color:rgba(255,255,255,0.4);transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Home</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li aria-current="page" style="color:var(--accent);">Contact</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ MAIN CONTACT SECTION â”€â”€ -->
+    <section class="section" style="background:var(--surface);" aria-labelledby="contact-heading">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr;gap:3rem;align-items:start;" class="lg:grid-cols-5 lg:gap-12">
+
+          <!-- LEFT: info + hours -->
+          <div class="lg:col-span-2">
+
+            <div class="reveal">
+              <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;">
+                <span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>
+                Contact Details
+              </span>
+              <h2 class="heading-section" id="contact-heading" style="font-size:clamp(1.75rem,3vw,2.5rem);margin-bottom:0.875rem;">
+                Speak to a<br /><em style="font-style:italic;color:var(--primary-light);">Real Partner</em>
+              </h2>
+              <hr class="section-rule" />
+              <p style="font-size:0.95rem;line-height:1.85;color:var(--muted);margin-bottom:2rem;">
+                No call centres, no queues. When you contact Nexus, you reach a qualified professional who understands your query from the first conversation.
+              </p>
+            </div>
+
+            <!-- Contact cards -->
+            <div style="display:flex;flex-direction:column;gap:0.875rem;margin-bottom:2rem;" class="reveal" data-delay="0.06">
+              <a href="tel:+254700000000" class="contact-info-card" style="text-decoration:none;">
+                <div class="contact-info-icon"><svg data-feather="phone" width="20" height="20" aria-hidden="true"></svg></div>
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Main Line</div>
+                  <div style="font-size:0.95rem;font-weight:500;color:var(--ink);">+254 700 000 000</div>
+                  <div style="font-size:0.78rem;color:var(--muted);margin-top:1px;">Monâ€“Fri, 8:00 AM â€“ 6:00 PM</div>
+                </div>
+              </a>
+              <a href="tel:+254711000000" class="contact-info-card" style="text-decoration:none;">
+                <div class="contact-info-icon"><svg data-feather="phone-call" width="20" height="20" aria-hidden="true"></svg></div>
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Direct / Urgent</div>
+                  <div style="font-size:0.95rem;font-weight:500;color:var(--ink);">+254 711 000 000</div>
+                  <div style="font-size:0.78rem;color:var(--muted);margin-top:1px;">Tax emergencies &amp; KRA deadlines</div>
+                </div>
+              </a>
+              <a href="mailto:info@nexustax.co.ke" class="contact-info-card" style="text-decoration:none;">
+                <div class="contact-info-icon"><svg data-feather="mail" width="20" height="20" aria-hidden="true"></svg></div>
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">General Enquiries</div>
+                  <div style="font-size:0.95rem;font-weight:500;color:var(--ink);">info@nexustax.co.ke</div>
+                  <div style="font-size:0.78rem;color:var(--muted);margin-top:1px;">Response within 4 business hours</div>
+                </div>
+              </a>
+              <a href="mailto:audits@nexustax.co.ke" class="contact-info-card" style="text-decoration:none;">
+                <div class="contact-info-icon"><svg data-feather="search" width="20" height="20" aria-hidden="true"></svg></div>
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Audit Department</div>
+                  <div style="font-size:0.95rem;font-weight:500;color:var(--ink);">audits@nexustax.co.ke</div>
+                  <div style="font-size:0.78rem;color:var(--muted);margin-top:1px;">Statutory &amp; internal audit enquiries</div>
+                </div>
+              </a>
+              <div class="contact-info-card">
+                <div class="contact-info-icon"><svg data-feather="map-pin" width="20" height="20" aria-hidden="true"></svg></div>
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Physical Address</div>
+                  <div style="font-size:0.92rem;font-weight:500;color:var(--ink);line-height:1.5;">14th Floor, Lonrho House<br/>Standard Street, Nairobi CBD</div>
+                  <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">P.O. Box 12345-00100, Nairobi</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Business hours -->
+            <div class="reveal" data-delay="0.1" style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+              <h3 style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.5rem;">
+                <svg data-feather="clock" width="14" height="14" aria-hidden="true"></svg>
+                Business Hours
+              </h3>
+              <div id="hours-list">
+                <div class="hours-row" id="hr-mon"><span class="hours-day">Monday</span><span class="hours-time">8:00 AM â€“ 6:00 PM</span></div>
+                <div class="hours-row" id="hr-tue"><span class="hours-day">Tuesday</span><span class="hours-time">8:00 AM â€“ 6:00 PM</span></div>
+                <div class="hours-row" id="hr-wed"><span class="hours-day">Wednesday</span><span class="hours-time">8:00 AM â€“ 6:00 PM</span></div>
+                <div class="hours-row" id="hr-thu"><span class="hours-day">Thursday</span><span class="hours-time">8:00 AM â€“ 6:00 PM</span></div>
+                <div class="hours-row" id="hr-fri"><span class="hours-day">Friday</span><span class="hours-time">8:00 AM â€“ 5:00 PM</span></div>
+                <div class="hours-row" id="hr-sat"><span class="hours-day">Saturday</span><span class="hours-time hours-closed">By appointment only</span></div>
+                <div class="hours-row" id="hr-sun"><span class="hours-day">Sunday</span><span class="hours-time hours-closed">Closed</span></div>
+              </div>
+              <div style="margin-top:1rem;padding:0.75rem;background:var(--primary-muted);border-radius:8px;display:flex;align-items:center;gap:0.5rem;">
+                <div style="width:8px;height:8px;background:var(--success);border-radius:50%;flex-shrink:0;animation:pulse 2s ease-in-out infinite;" aria-hidden="true"></div>
+                <span id="open-status" style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.08em;color:var(--primary);">Checking hours...</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: Contact form -->
+          <div class="lg:col-span-3">
+            <div class="reveal" style="background:var(--white);border:1px solid var(--border);border-radius:20px;padding:clamp(1.75rem,4vw,3rem);box-shadow:var(--shadow-md);">
+
+              <div style="margin-bottom:2rem;">
+                <h3 style="font-family:var(--font-display);font-size:1.75rem;font-weight:400;color:var(--ink);margin-bottom:0.5rem;">Send Us a Message</h3>
+                <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;">Fill in the form below and a partner will reply within 4 business hours.</p>
+              </div>
+
+              <!-- Form -->
+              <form id="contact-form" data-validate="handleContactSubmit" novalidate aria-label="Contact form">
+                <div class="form-grid form-grid-2" style="margin-bottom:1.25rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="c-first">First Name <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                    <input class="form-input" type="text" id="c-first" name="first_name" placeholder="Amina" required autocomplete="given-name" />
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="c-last">Last Name <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                    <input class="form-input" type="text" id="c-last" name="last_name" placeholder="Ochieng" required autocomplete="family-name" />
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <div class="form-grid form-grid-2" style="margin-bottom:1.25rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="c-email">Email Address <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                    <input class="form-input" type="email" id="c-email" name="email" placeholder="you@company.co.ke" required autocomplete="email" />
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="c-phone">Phone Number</label>
+                    <input class="form-input" type="tel" id="c-phone" name="phone" placeholder="+254 7XX XXX XXX" autocomplete="tel" />
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:1.25rem;">
+                  <label class="form-label" for="c-company">Company / Organisation</label>
+                  <input class="form-input" type="text" id="c-company" name="company" placeholder="Your company name" autocomplete="organization" />
+                </div>
+
+                <div class="form-group" style="margin-bottom:1.25rem;">
+                  <label class="form-label" for="c-service">Service of Interest <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                  <select class="form-select" id="c-service" name="service" required aria-required="true">
+                    <option value="" disabled selected>Select a serviceâ€¦</option>
+                    <option value="tax-agent">Tax Agency &amp; KRA Compliance</option>
+                    <option value="auditing">Auditing &amp; Assurance</option>
+                    <option value="bookkeeping">Bookkeeping</option>
+                    <option value="accounting">Accounting &amp; Financial Reporting</option>
+                    <option value="tax-advisory">Tax Advisory &amp; Planning</option>
+                    <option value="business-reg">Business Registration</option>
+                    <option value="forensic">Forensic Accounting</option>
+                    <option value="international">International Tax</option>
+                    <option value="other">Other / Not Sure</option>
+                  </select>
+                  <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <div class="form-group" style="margin-bottom:1.25rem;">
+                  <label class="form-label" for="c-subject">Subject <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                  <input class="form-input" type="text" id="c-subject" name="subject" placeholder="Brief summary of your enquiry" required />
+                  <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <div class="form-group" style="margin-bottom:1.75rem;">
+                  <label class="form-label" for="c-message">Message <span style="color:var(--error);" aria-hidden="true">*</span></label>
+                  <textarea class="form-textarea" id="c-message" name="message" placeholder="Tell us more about your needs. The more detail you share, the more tailored our response will beâ€¦" required style="min-height:140px;" aria-required="true"></textarea>
+                  <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+
+                <!-- Consent -->
+                <div style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1.75rem;">
+                  <input type="checkbox" id="c-consent" name="consent" required style="width:16px;height:16px;margin-top:3px;accent-color:var(--primary);flex-shrink:0;cursor:pointer;" aria-required="true"/>
+                  <label for="c-consent" style="font-size:0.82rem;color:var(--muted);line-height:1.6;cursor:pointer;">
+                    I agree to Brezoid Global Networks Limited's Privacy Policy. My data will be used solely to respond to this enquiry and will never be sold or shared.
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" id="contact-submit-btn">
+                  <svg data-feather="send" width="18" height="18" aria-hidden="true"></svg>
+                  Send Message
+                </button>
+
+              </form>
+
+              <!-- Success state -->
+              <div class="form-success" id="contact-success" aria-live="polite" role="status">
+                <div class="form-success-icon" aria-hidden="true">
+                  <svg data-feather="check" width="32" height="32" style="color:var(--success);" aria-hidden="true"></svg>
+                </div>
+                <h3 style="font-family:var(--font-display);font-size:1.75rem;font-weight:400;color:var(--ink);margin-bottom:0.75rem;">Message Received</h3>
+                <p style="color:var(--muted);font-size:0.95rem;max-width:380px;margin:0 auto 2rem;line-height:1.8;">Thank you for reaching out. A Nexus partner will review your message and respond within 4 business hours.</p>
+                <a href="index.html" class="btn btn-outline" style="border-color:var(--primary);color:var(--primary);">Back to Home</a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- â”€â”€ MAP â”€â”€ -->
+    <section class="section--sm bg-white" aria-label="Our location">
+      <div class="container">
+
+        <div style="margin-bottom:2rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;" class="reveal">
+          <div>
+            <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;margin-bottom:0.875rem;">
+              <span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>
+              Find Us
+            </span>
+            <h2 style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.25rem);font-weight:400;line-height:1.2;color:var(--ink);">
+              14th Floor, Lonrho House<br /><span style="color:var(--primary-light);font-style:italic;">Standard Street, Nairobi</span>
+            </h2>
+          </div>
+          <a href="https://maps.google.com/?q=Lonrho+House+Standard+Street+Nairobi" target="_blank" rel="noopener" class="btn btn-outline" style="border-color:var(--primary);color:var(--primary);">
+            <svg data-feather="external-link" width="15" height="15" aria-hidden="true"></svg>
+            Open in Google Maps
+          </a>
+        </div>
+
+        <div class="map-placeholder reveal" data-delay="0.05" role="img" aria-label="Map placeholder showing Brezoid Global Networks Limited office location at Lonrho House, Standard Street, Nairobi">
+          <div class="map-pin-anim">
+            <svg width="36" height="44" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18 0C8.06 0 0 8.06 0 18C0 31.5 18 44 18 44C18 44 36 31.5 36 18C36 8.06 27.94 0 18 0Z" fill="#113766"/>
+              <circle cx="18" cy="18" r="7" fill="#CC9F46"/>
+            </svg>
+          </div>
+          <div class="map-pin-shadow" aria-hidden="true"></div>
+          <div style="margin-top:1rem;text-align:center;position:relative;z-index:1;">
+            <div style="font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--ink-soft);">Lonrho House</div>
+            <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:2px;">Standard Street Â· Nairobi CBD</div>
+          </div>
+        </div>
+
+        <!-- Directions strip -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1rem;margin-top:1.5rem;" class="reveal" data-delay="0.08">
+          <div style="display:flex;align-items:flex-start;gap:0.875rem;padding:1.25rem;background:var(--surface);border-radius:10px;border:1px solid var(--border-soft);">
+            <svg data-feather="navigation" width="18" height="18" style="color:var(--accent);flex-shrink:0;margin-top:2px;" aria-hidden="true"></svg>
+            <div>
+              <div style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:2px;">From Haile Selassie Ave</div>
+              <div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Turn onto Standard Street. Lonrho House is on the right, ~200m from the junction.</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.875rem;padding:1.25rem;background:var(--surface);border-radius:10px;border:1px solid var(--border-soft);">
+            <svg data-feather="map" width="18" height="18" style="color:var(--accent);flex-shrink:0;margin-top:2px;" aria-hidden="true"></svg>
+            <div>
+              <div style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:2px;">Nearest Landmark</div>
+              <div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Adjacent to Nation Centre. Walk 3 minutes from Kencom Bus Stage.</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.875rem;padding:1.25rem;background:var(--surface);border-radius:10px;border:1px solid var(--border-soft);">
+            <svg data-feather="parking-circle" width="18" height="18" style="color:var(--accent);flex-shrink:0;margin-top:2px;" aria-hidden="true"></svg>
+            <div>
+              <div style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:2px;">Parking</div>
+              <div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Basement parking available. Visitor bay on Floor B1 â€” mention Nexus at the gate.</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.875rem;padding:1.25rem;background:var(--surface);border-radius:10px;border:1px solid var(--border-soft);">
+            <svg data-feather="wifi" width="18" height="18" style="color:var(--accent);flex-shrink:0;margin-top:2px;" aria-hidden="true"></svg>
+            <div>
+              <div style="font-size:0.82rem;font-weight:500;color:var(--ink);margin-bottom:2px;">Virtual Meetings</div>
+              <div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Zoom &amp; Teams available for all consultations. Ask us to schedule remotely.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;"><div class="nav-logo-icon" aria-hidden="true"></div><div class="nav-logo-text"><span class="nav-logo-wordmark">Nexus</span><span class="nav-logo-tagline">Tax &amp; Audit</span></div></div>
+            <p class="footer-brand-desc">Kenya's trusted partner for tax advisory, statutory audits, and financial compliance. Precision. Integrity. Results.</p>
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.75rem;color:rgba(255,255,255,0.4);font-size:0.82rem;"><svg data-feather="map-pin" width="14" height="14" style="flex-shrink:0;margin-top:3px;color:var(--accent);" aria-hidden="true"></svg><span>14th Floor, Lonrho House<br/>Standard Street, Nairobi CBD<br/>P.O. Box 12345-00100</span></div>
+            <a href="tel:+254700000000" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>+254 700 000 000</a><br/>
+            <a href="mailto:info@nexustax.co.ke" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;"><svg data-feather="mail" width="13" height="13" aria-hidden="true"></svg>info@nexustax.co.ke</a>
+          </div>
+          <div>
+            <h3 class="footer-heading">Services</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="index.html#services" class="footer-link">Tax Agency</a></li>
+              <li><a href="index.html#services" class="footer-link">Auditing &amp; Assurance</a></li>
+              <li><a href="index.html#services" class="footer-link">Bookkeeping</a></li>
+              <li><a href="index.html#services" class="footer-link">Accounting</a></li>
+              <li><a href="index.html#services" class="footer-link">Tax Advisory</a></li>
+              <li><a href="index.html#services" class="footer-link">Forensic Accounting</a></li>
+              <li><a href="index.html#services" class="footer-link">International Tax</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Company</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="about.html" class="footer-link">About Us</a></li>
+              <li><a href="about.html#team" class="footer-link">Our Team</a></li>
+              <li><a href="about.html#values" class="footer-link">Our Values</a></li>
+              <li><a href="contact.html" class="footer-link">Contact</a></li>
+              <li><a href="quote.html" class="footer-link">Get a Quote</a></li>
+              <li>Careers</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Tax Updates</h3>
+            <p style="font-size:0.82rem;color:rgba(255,255,255,0.42);line-height:1.75;margin-bottom:1.25rem;">Subscribe for KRA deadline alerts and Kenyan tax law updates.</p>
+            <form id="newsletter-form" style="display:flex;flex-direction:column;gap:0.5rem;" novalidate>
+              <div style="display:flex;gap:0.5rem;">
+                <input type="email" placeholder="Your email address" style="flex:1;padding:0.7rem 0.875rem;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:6px;color:white;font-size:0.85rem;font-family:var(--font-body);outline:none;" aria-label="Email for newsletter" required/>
+                <button type="submit" class="btn btn-accent" style="padding:0.7rem 0.875rem;flex-shrink:0;" aria-label="Subscribe"><svg data-feather="arrow-right" width="16" height="16" aria-hidden="true"></svg></button>
+              </div>
+              <p style="font-size:0.68rem;color:rgba(255,255,255,0.25);">No spam. Unsubscribe any time.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="footer-year">2025</span> Brezoid Global Networks Limited. All rights reserved.</p>
+        <nav aria-label="Legal links" style="display:flex;gap:1.25rem;">Privacy PolicyTerms of Use</nav>
+        <div class="footer-social" role="list">
+          <a href="#" class="footer-social-link" aria-label="LinkedIn" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="footer-social-link" aria-label="Twitter" role="listitem"><svg data-feather="twitter" width="14" height="14" aria-hidden="true"></svg></a>
+          <a href="#" class="footer-social-link" aria-label="Facebook" role="listitem"><svg data-feather="facebook" width="14" height="14" aria-hidden="true"></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top"><svg data-feather="arrow-up" width="18" height="18" aria-hidden="true"></svg></button>
+
+  <style>
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.5; transform:scale(0.85); }
+    }
+  </style>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* â”€â”€ Business hours highlight â”€â”€ */
+    (function() {
+      const now = new Date();
+      const day = now.getDay(); // 0=Sun
+      const hour = now.getHours();
+      const rowIds = ['hr-sun','hr-mon','hr-tue','hr-wed','hr-thu','hr-fri','hr-sat'];
+      const todayRow = document.getElementById(rowIds[day]);
+      if (todayRow) { todayRow.classList.add('hours-today'); }
+
+      const isOpen =
+        (day >= 1 && day <= 4 && hour >= 8 && hour < 18) ||
+        (day === 5 && hour >= 8 && hour < 17) ||
+        (day === 6 && hour >= 8 && hour < 13);
+
+      const status = document.getElementById('open-status');
+      if (status) {
+        if (isOpen) {
+          status.textContent = 'We are currently open â€” call or message us now';
+          status.style.color = 'var(--success)';
+        } else {
+          const nextOpen = day === 0 ? 'Monday at 8:00 AM' : day === 6 ? 'Monday at 8:00 AM' : 'tomorrow at 8:00 AM';
+          status.textContent = 'Currently closed â€” we will respond ' + nextOpen;
+          status.style.color = 'var(--muted)';
+        }
+      }
+    })();
+
+    /* â”€â”€ Contact form validation â”€â”€ */
+    function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+    function showError(group, msg) {
+      group.classList.add('has-error');
+      group.classList.remove('is-valid');
+      const err = group.querySelector('.form-error');
+      if (err) err.textContent = msg;
+    }
+
+    function clearError(group) {
+      group.classList.remove('has-error');
+      group.classList.add('is-valid');
+      const err = group.querySelector('.form-error');
+      if (err) err.textContent = '';
+    }
+
+    const form = document.getElementById('contact-form');
+    if (form) {
+      // Live validation on blur
+      form.querySelectorAll('[required]').forEach(input => {
+        input.addEventListener('blur', () => {
+          const group = input.closest('.form-group');
+          if (!group) return;
+          if (!input.value.trim()) { showError(group, 'This field is required.'); return; }
+          if (input.type === 'email' && !validateEmail(input.value)) { showError(group, 'Please enter a valid email address.'); return; }
+          clearError(group);
+        });
+        input.addEventListener('input', () => {
+          const group = input.closest('.form-group');
+          if (group) group.classList.remove('has-error');
+        });
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let valid = true;
+
+        // Check required fields
+        this.querySelectorAll('[required]').forEach(input => {
+          const group = input.closest('.form-group');
+          if (!group && input.type === 'checkbox') {
+            if (!input.checked) { valid = false; input.style.outline = '2px solid var(--error)'; }
+            else { input.style.outline = ''; }
+            return;
+          }
+          if (!input.value.trim()) { showError(group, 'This field is required.'); valid = false; return; }
+          if (input.type === 'email' && !validateEmail(input.value)) { showError(group, 'Please enter a valid email address.'); valid = false; return; }
+          if (group) clearError(group);
+        });
+
+        if (!valid) {
+          // Scroll to first error
+          const firstErr = form.querySelector('.has-error');
+          if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Shake submit btn
+          const btn = document.getElementById('contact-submit-btn');
+          if (btn && typeof gsap !== 'undefined') {
+            gsap.fromTo(btn, { x: -8 }, { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+          }
+          return;
+        }
+
+        window.handleContactSubmit(this);
+      });
+    }
+
+    window.handleContactSubmit = function(form) {
+      const btn = document.getElementById('contact-submit-btn');
+      if (btn) {
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M4.93 4.93l14.14 14.14"/></svg> Sendingâ€¦';
+        btn.disabled = true;
+      }
+      setTimeout(() => {
+        form.style.display = 'none';
+        const success = document.getElementById('contact-success');
+        if (success) {
+          success.style.display = 'block';
+          if (typeof feather !== 'undefined') feather.replace({ 'stroke-width': 1.5 });
+          if (typeof gsap !== 'undefined') {
+            gsap.fromTo(success, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
+          }
+        }
+      }, 1200);
+    };
+
+    /* â”€â”€ Newsletter â”€â”€ */
+    const nf = document.getElementById('newsletter-form');
+    if (nf) nf.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const inp = this.querySelector('input'); const btn = this.querySelector('button');
+      if (!inp || !inp.value.trim()) return;
+      if (btn) { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'; btn.style.background = '#1a8a5c'; }
+      inp.value = ''; inp.placeholder = "You're subscribed!"; inp.disabled = true;
+    });
+  </script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
+
