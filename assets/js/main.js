@@ -1065,7 +1065,7 @@
 
     /* Truncate text */
     truncate(str, maxLen = 100) {
-      return str.length > maxLen ? str.slice(0, maxLen) + 'â€¦' : str;
+      return str.length > maxLen ? str.slice(0, maxLen) + '…' : str;
     },
 
     /* Copy to clipboard */
