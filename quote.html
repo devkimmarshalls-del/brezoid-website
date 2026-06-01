@@ -282,29 +282,34 @@
   <!-- NAVBAR -->
   <nav id="navbar" class="nav-solid" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Brezoid Global Networks Limited , Home">
+      <a href="index.html" class="nav-logo" aria-label="Brezoid Global Networks Limited ’ Home">
         <img src="assets/images/Brezoid-logo-light.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img nav-logo-img-white" width="160" height="38" /><img src="assets/images/brezoid-logo.svg" alt="" aria-hidden="true" class="nav-logo-img nav-logo-img-color" width="160" height="38" />
       </a>
       <ul class="nav-menu" role="list">
         <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="about.html" class="nav-link" aria-current="page">About Us</a></li>
         <li class="nav-dropdown">
-          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Services <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg></button>
+          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Services <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg>
+          </button>
           <div class="nav-dropdown-menu" role="menu">
             <a href="services/tax-agent.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="file-text" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Agency</span><span class="nav-dropdown-desc">KRA compliance &amp; filing</span></span></a>
             <a href="services/auditing.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="search" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Auditing &amp; Assurance</span><span class="nav-dropdown-desc">Statutory &amp; internal audits</span></span></a>
             <a href="services/bookkeeping.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="book-open" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Bookkeeping</span><span class="nav-dropdown-desc">Accurate financial records</span></span></a>
             <a href="services/accounting.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="bar-chart-2" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Accounting</span><span class="nav-dropdown-desc">IFRS-compliant reporting</span></span></a>
             <a href="services/tax-advisory.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="briefcase" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Tax Advisory</span><span class="nav-dropdown-desc">Strategic tax planning</span></span></a>
-            <a href="services/business-registration.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Forensic Accounting</span><span class="nav-dropdown-desc">Fraud detection &amp; litigation</span></span></a>
-            <a href="services/forensic.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">International Tax</span><span class="nav-dropdown-desc">Cross-border structuring</span></span></a>
+            <a href="services/business-registration.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="award" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Business Registration</span><span class="nav-dropdown-desc">Company &amp; NGO setup</span></span></a>
+            <a href="services/forensic.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">Forensic Accounting</span><span class="nav-dropdown-desc">Fraud detection &amp; litigation</span></span></a>
+            <a href="services/international-tax.html" class="nav-dropdown-item" role="menuitem"><span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span><span><span class="nav-dropdown-label">International Tax</span><span class="nav-dropdown-desc">Cross-border structuring</span></span></a>
           </div>
         </li>
         <li><a href="contact.html" class="nav-link">Contact</a></li>
       </ul>
       <div style="display:flex;align-items:center;gap:1rem;margin-left:1rem;">
-        <a href="tel:+254112472121" class="hidden lg:flex items-center gap-2" style="color:var(--muted);font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.04em;" aria-label="Call us"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg> +254 112 472 121</a>
-        <a href="quote.html" class="nav-cta nav-cta-solid">Get a Quote</a>        
+        <a href="tel:+254112472121" class="hidden lg:flex items-center gap-2" style="color:var(--muted);font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.04em;" aria-label="Call us">
+          <svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg> +254 112 472 121
+        </a>
+        <a href="quote.html" class="nav-cta" style="border-color:var(--primary);color:var(--primary);" onmouseover="this.style.background='var(--primary)';this.style.color='white';" onmouseout="this.style.background='transparent';this.style.color='var(--primary)';">Get a Quote</a>
         <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
       </div>
     </div>
