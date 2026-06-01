@@ -2224,3 +2224,17 @@ body.page-quote::before {
   z-index: calc(var(--z-nav, 100) - 1);
   pointer-events: none;
 }
+
+/* quote.html — force button visible on dark strip */
+body.page-quote #navbar:not(.nav-solid) .nav-cta,
+body.page-quote #navbar:not(.nav-solid) .nav-cta-solid {
+  border: 1.5px solid var(--accent) !important;
+  color: var(--accent) !important;
+  background: transparent !important;
+}
+
+body.page-quote #navbar:not(.nav-solid) .nav-cta:hover,
+body.page-quote #navbar:not(.nav-solid) .nav-cta-solid:hover {
+  background: var(--accent) !important;
+  color: var(--ink) !important;
+}
