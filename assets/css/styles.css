@@ -2183,27 +2183,37 @@ input, textarea, select {
 
 /* ── Nav phone + CTA fixes ── */
 
-/* Phone number visible on white navbar */
+/* Phone number — white on dark nav */
+#navbar:not(.nav-solid) a[href^="tel:"] {
+  color: rgba(255,255,255,0.75) !important;
+}
+
+/* Phone number — dark on white nav */
 #navbar.nav-solid a[href^="tel:"] {
   color: var(--ink-soft) !important;
 }
 
-/* Get a Quote — accent border always */
+/* Get a Quote button — ALL states */
 .nav-cta,
 .nav-cta-solid {
-  border-color: var(--accent) !important;
-  color: var(--primary) !important;
-  background: transparent;
-  transition: background var(--duration-base), color var(--duration-base) !important;
+  border: 1.5px solid var(--accent) !important;
+  color: var(--white) !important;
+  background: transparent !important;
+  font-weight: 500;
+  transition: background 0.25s ease, color 0.25s ease !important;
 }
+
+/* Scrolled white nav — text switches to dark */
+#navbar.nav-solid .nav-cta,
+#navbar.nav-solid .nav-cta-solid {
+  color: var(--primary) !important;
+  border-color: var(--accent) !important;
+}
+
+/* Hover — always gold fill */
 .nav-cta:hover,
 .nav-cta-solid:hover {
   background: var(--accent) !important;
   border-color: var(--accent) !important;
   color: var(--ink) !important;
-}
-
-/* Phone number on transparent nav (hero) stays white */
-#navbar:not(.nav-solid) a[href^="tel:"] {
-  color: rgba(255,255,255,0.65) !important;
 }
