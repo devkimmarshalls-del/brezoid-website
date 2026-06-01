@@ -1,6 +1,6 @@
 import re
 
-# Extract the full working navbar from index.html
+# Copy exact navbar from index.html to quote.html
 with open('index.html', 'rb') as f:
     index = f.read()
 
@@ -10,36 +10,18 @@ if not nav_match:
     exit()
 
 index_nav = nav_match.group()
-print('Extracted from index.html, length:', len(index_nav))
 
-# Also extract mobile overlay and mobile menu
-overlay_match = re.search(
-    b'<div class="nav-mobile-overlay".*?</div>',
-    index, re.DOTALL
-)
-mobile_match = re.search(
-    b'<div class="nav-mobile-menu".*?</div>\s*\n\s*<main',
-    index, re.DOTALL
-)
+with open('quote.html', 'rb') as f:
+    quote = f.read()
 
-# Pages to fix — root pages only (services handled separately)
-pages = ['about.html', 'contact.html']
+quote_nav = re.search(b'<nav id="navbar".*?</nav>', quote, re.DOTALL)
+if not quote_nav:
+    print('Navbar not found in quote.html')
+    exit()
 
-for page in pages:
-    with open(page, 'rb') as f:
-        content = f.read()
-    original = content
+new_quote = quote[:quote_nav.start()] + index_nav + quote[quote_nav.end():]
 
-    # Replace navbar
-    page_nav = re.search(b'<nav id="navbar".*?</nav>', content, re.DOTALL)
-    if page_nav:
-        content = content[:page_nav.start()] + index_nav + content[page_nav.end():]
-        print('Replaced navbar in:', page)
-    else:
-        print('Navbar not found in:', page)
+with open('quote.html', 'wb') as f:
+    f.write(new_quote)
 
-    if content != original:
-        with open(page, 'wb') as f:
-            f.write(content)
-
-print('\nDone.')
+print('Done. quote.html navbar replaced with index.html navbar.')
