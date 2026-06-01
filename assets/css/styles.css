@@ -2222,3 +2222,16 @@ body.page-quote #navbar.nav-solid {
   background: var(--white) !important;
   box-shadow: var(--shadow-sm) !important;
 }
+
+/* quote.html — dark strip behind transparent navbar */
+body.page-quote::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height, 80px);
+  background: var(--primary-dark);
+  z-index: calc(var(--z-nav, 100) - 1);
+  pointer-events: none;
+}

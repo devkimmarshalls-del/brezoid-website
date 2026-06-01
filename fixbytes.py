@@ -1,23 +1,11 @@
-import re
-
+python -c "
 with open('quote.html', 'rb') as f:
     content = f.read()
-
-original = content
-
-content = content.replace(
-    b'<nav id="navbar" class="nav-solid" role="navigation"',
-    b'<nav id="navbar" class="nav-transparent" role="navigation"'
-)
-
-content = content.replace(
-    b'<body class="font-body">',
-    b'<body class="font-body page-quote">'
-)
-
-if content != original:
-    with open('quote.html', 'wb') as f:
-        f.write(content)
-    print('Fixed: quote.html')
-else:
-    print('Pattern not found')
+import re
+style_match = re.search(b'<style>(.*?)</style>', content, re.DOTALL)
+if style_match:
+    style = style_match.group(1)
+    for m in re.finditer(b'navbar[^}]*}', style, re.DOTALL):
+        print(m.group())
+        print()
+"
