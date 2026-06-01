@@ -1,37 +1,45 @@
-import os, glob
+import os
 
 BASE = os.getcwd()
 
-def fix_service_links(content):
-    # Replace each occurrence of index.html#services in order
-    # matching the order services appear in the dropdown
-    links = [
-        b'services/tax-agent.html',
-        b'services/auditing.html',
-        b'services/bookkeeping.html',
-        b'services/accounting.html',
-        b'services/tax-advisory.html',
-        b'services/business-registration.html',
-        b'services/forensic.html',
-        b'services/international-tax.html',
-    ]
-    for link in links:
-        content = content.replace(b'href="index.html#services"', b'href="' + link + b'"', 1)
-    return content
+# Add Get a Quote button to quote.html navbar
+# Find the phone number link and insert the button after it
 
-files = ['about.html', 'contact.html', 'quote.html']
-total = 0
-for filepath in files:
-    with open(filepath, 'rb') as f:
-        content = f.read()
-    original = content
-    content = fix_service_links(content)
-    if content != original:
-        with open(filepath, 'wb') as f:
+with open('quote.html', 'rb') as f:
+    content = f.read()
+
+original = content
+
+# Find the phone link in the nav and add the CTA button after it
+old = (
+    b'<a href="tel:+254112472121" class="hidden lg:flex items-center gap-2" '
+    b'style="color:var(--muted);font-family:var(--font-mono);font-size:0.78rem;" '
+    b'aria-label="Call us">'
+    b'<svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>'
+    b'+254 112 472 121</a>'
+)
+
+new = old + (
+    b'\r\n        '
+    b'<a href="quote.html" class="nav-cta nav-cta-solid">Get a Quote</a>'
+)
+
+content = content.replace(old, new)
+
+if content != original:
+    with open('quote.html', 'wb') as f:
+        f.write(content)
+    print('Fixed: quote.html')
+else:
+    print('Pattern not found - checking alternate format...')
+    # Try alternate spacing
+    idx = content.find(b'+254 112 472 121</a>')
+    if idx != -1:
+        insert_after = idx + len(b'+254 112 472 121</a>')
+        button = b'\r\n        <a href="quote.html" class="nav-cta nav-cta-solid">Get a Quote</a>'
+        content = content[:insert_after] + button + content[insert_after:]
+        with open('quote.html', 'wb') as f:
             f.write(content)
-        print('Fixed: ' + filepath)
-        total += 1
+        print('Fixed: quote.html (alternate method)')
     else:
-        print('OK:    ' + filepath)
-
-print('\nDone. ' + str(total) + ' files updated.')
+        print('Could not find insertion point')
