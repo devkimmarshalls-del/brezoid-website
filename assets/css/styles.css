@@ -2216,3 +2216,9 @@ input, textarea, select {
   border-color: var(--accent) !important;
   color: var(--ink) !important;
 }
+
+/* quote.html — navbar visible over white content when scrolled */
+body.page-quote #navbar.nav-solid {
+  background: var(--white) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
