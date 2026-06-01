@@ -2031,16 +2031,13 @@ input, textarea, select {
 #navbar.nav-solid .nav-menu .nav-link::after { background: var(--primary); }
 
 /* Nav CTA â€” solid state (replaces inline onmouseover handlers) */
+/* Nav CTA — solid state */
 .nav-cta-solid {
-  border-color: var(--primary) !important;
-  color: var(--primary) !important;
+  border-color: var(--accent);
+  color: var(--primary);
   background: transparent;
   transition: background var(--duration-base) var(--ease-sharp),
-              color var(--duration-base) var(--ease-sharp) !important;
-}
-.nav-cta-solid:hover {
-  background: var(--primary) !important;
-  color: var(--white) !important;
+              color var(--duration-base) var(--ease-sharp);
 }
 
 /* Breadcrumb links (replaces inline onmouseover handlers) */
