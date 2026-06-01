@@ -2,15 +2,9 @@ import os, glob
 
 BASE = os.getcwd()
 
-replacements = [
-    # Fix service dropdown links pointing to services/index.html
-    (b'href="services/index.html"',  b'href="services/tax-agent.html"'),
-]
-
-# Only fix root pages - BUT we need specific replacements per link
-# So we do a targeted fix per file
 def fix_service_links(content):
-    # Replace each service link in order they appear
+    # Replace each occurrence of index.html#services in order
+    # matching the order services appear in the dropdown
     links = [
         b'services/tax-agent.html',
         b'services/auditing.html',
@@ -22,7 +16,7 @@ def fix_service_links(content):
         b'services/international-tax.html',
     ]
     for link in links:
-        content = content.replace(b'href="services/index.html"', b'href="' + link + b'"', 1)
+        content = content.replace(b'href="index.html#services"', b'href="' + link + b'"', 1)
     return content
 
 files = ['about.html', 'contact.html', 'quote.html']

@@ -2180,3 +2180,30 @@ input, textarea, select {
   transition: opacity 0.25s ease;
 }
 .footer-logo-img:hover { opacity: 1; }
+
+/* ── Nav phone + CTA fixes ── */
+
+/* Phone number visible on white navbar */
+#navbar.nav-solid a[href^="tel:"] {
+  color: var(--ink-soft) !important;
+}
+
+/* Get a Quote — accent border always */
+.nav-cta,
+.nav-cta-solid {
+  border-color: var(--accent) !important;
+  color: var(--primary) !important;
+  background: transparent;
+  transition: background var(--duration-base), color var(--duration-base) !important;
+}
+.nav-cta:hover,
+.nav-cta-solid:hover {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: var(--ink) !important;
+}
+
+/* Phone number on transparent nav (hero) stays white */
+#navbar:not(.nav-solid) a[href^="tel:"] {
+  color: rgba(255,255,255,0.65) !important;
+}
