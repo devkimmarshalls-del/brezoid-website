@@ -454,7 +454,7 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     z-index: 10;
-    opacity: 0;
+    opacity: 1;
   }
   .hero-stat-card .hsc-inner  { display:flex; align-items:center; gap:10px; }
   .hero-stat-card .hsc-val    { font-family:var(--font-display,Georgia,serif); font-size:26px; color:#CC9F46; font-weight:600; line-height:1; }
@@ -1614,6 +1614,28 @@
     });
 
     /* &mdash;&mdash; Process number hover - handled via CSS &mdash;&mdash; */
+  </script>
+  <script>
+  window.addEventListener('load', function() {
+    if (typeof gsap === 'undefined') return;
+    var tl = gsap.timeline({ delay: 0.4 });
+    tl.to('#artChartLine',  { strokeDashoffset:0, duration:1.5, ease:'power2.inOut' }, 0.3);
+    tl.to('#artChartFill',  { opacity:1, duration:0.7, ease:'power2.out' }, 1.4);
+    tl.to('#artChartDots',  { opacity:1, duration:0.3 }, 1.7);
+    tl.from('#artChartDots circle', { scale:0, transformOrigin:'center', stagger:0.08, duration:0.3, ease:'back.out(2)' }, 1.7);
+    tl.to('#artTooltip',    { opacity:1, duration:0.4 }, 2.0);
+    tl.from('#artTooltip',  { y:-6 }, 2.0);
+    tl.to('#artNetwork',    { opacity:1, duration:0.5 }, 1.9);
+    tl.to('#cardKra',       { opacity:1, x:0, duration:0.5, ease:'power3.out' }, 0.6);
+    tl.from('#cardKra',     { x:-24 }, 0.6);
+    tl.to('#cardExp',       { opacity:1, x:0, duration:0.5, ease:'power3.out' }, 0.85);
+    tl.from('#cardExp',     { x:24  }, 0.85);
+    tl.to('#cardClients',   { opacity:1, x:0, duration:0.5, ease:'power3.out' }, 1.1);
+    tl.from('#cardClients', { x:-24 }, 1.1);
+    tl.to('#cardCert',      { opacity:1, x:0, duration:0.5, ease:'power3.out' }, 1.35);
+    tl.from('#cardCert',    { x:24  }, 1.35);
+    gsap.to('#artNodePulse', { scale:1.4, transformOrigin:'350px 340px', repeat:-1, yoyo:true, duration:1.8, ease:'sine.inOut', delay:2.5 });
+  });
   </script>
 
   <!-- Main JS (loads Feather, GSAP, Navbar, animations) -->
