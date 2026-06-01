@@ -2,28 +2,42 @@ import os, glob
 
 BASE = os.getcwd()
 
-# Fix broken service links in about.html and other root pages
-# They incorrectly point to index.html#services
 replacements = [
-    (b'href="index.html#services"', b'href="services/index.html"'),
+    # Fix service dropdown links pointing to services/index.html
+    (b'href="services/index.html"',  b'href="services/tax-agent.html"'),
 ]
 
-files = sorted(glob.glob(os.path.join(BASE, '*.html')))
+# Only fix root pages - BUT we need specific replacements per link
+# So we do a targeted fix per file
+def fix_service_links(content):
+    # Replace each service link in order they appear
+    links = [
+        b'services/tax-agent.html',
+        b'services/auditing.html',
+        b'services/bookkeeping.html',
+        b'services/accounting.html',
+        b'services/tax-advisory.html',
+        b'services/business-registration.html',
+        b'services/forensic.html',
+        b'services/international-tax.html',
+    ]
+    for link in links:
+        content = content.replace(b'href="services/index.html"', b'href="' + link + b'"', 1)
+    return content
 
+files = ['about.html', 'contact.html', 'quote.html']
 total = 0
 for filepath in files:
     with open(filepath, 'rb') as f:
         content = f.read()
     original = content
-    for find, replace in replacements:
-        content = content.replace(find, replace)
+    content = fix_service_links(content)
     if content != original:
         with open(filepath, 'wb') as f:
             f.write(content)
-        print('Fixed: ' + os.path.relpath(filepath, BASE))
+        print('Fixed: ' + filepath)
         total += 1
     else:
-        print('OK:    ' + os.path.relpath(filepath, BASE))
+        print('OK:    ' + filepath)
 
-print('')
-print('Done. ' + str(total) + ' files updated.')
+print('\nDone. ' + str(total) + ' files updated.')
