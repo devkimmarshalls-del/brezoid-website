@@ -1007,6 +1007,44 @@ input, textarea, select {
   background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
 }
 
+/* ─────────────────────────────────────────────────────────────
+   HERO TWO-COLUMN LAYOUT
+   Add this block to assets/css/styles.css
+   Place it in the Hero section alongside existing hero rules.
+   ───────────────────────────────────────────────────────────── */
+
+.hero-two-col {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Left text column — takes up ~50% and never shrinks below its content */
+.hero-two-col .hero-content-left,
+.hero-two-col > div:first-child {
+  flex: 1 1 50%;
+  min-width: 0;
+  max-width: 600px;
+}
+
+/* Right artwork column — defined in hero-art-styles <style> block in index.html */
+.hero-artwork-col {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+/* Stack on tablet / mobile */
+@media (max-width: 900px) {
+  .hero-two-col {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hero-two-col .hero-content-left,
+  .hero-two-col > div:first-child {
+    max-width: 100%;
+  }
+}
+
 /* ═════════════════════════════════════
    CARDS
     ═════════════════════════════════*/
