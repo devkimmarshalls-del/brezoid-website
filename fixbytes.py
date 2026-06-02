@@ -1,27 +1,30 @@
-import re
+import os
+from pathlib import Path
 
-# Copy exact navbar from index.html to quote.html
-with open('index.html', 'rb') as f:
-    index = f.read()
+extensions = ['.html', '.css', '.js']
+replacements = [
+    (b'20+ Years', b'6+ Years'),
+    (b'20+ years', b'6+ years'),
+    (b'20+\nYears', b'6+\nYears'),
+    (b'data-count="20"', b'data-count="6"'),
+]
 
-nav_match = re.search(b'<nav id="navbar".*?</nav>', index, re.DOTALL)
-if not nav_match:
-    print('Navbar not found in index.html')
-    exit()
+files_changed = []
+for root, dirs, files in os.walk('.'):
+    dirs[:] = [d for d in dirs if d not in ['_backups', '.git', 'node_modules']]
+    for fname in files:
+        if any(fname.endswith(ext) for ext in extensions):
+            path = Path(root) / fname
+            content = path.read_bytes()
+            new = content
+            for old, new_val in replacements:
+                new = new.replace(old, new_val)
+            if new != content:
+                path.write_bytes(new)
+                files_changed.append(str(path))
+                print(f"  [updated] {path}")
 
-index_nav = nav_match.group()
-
-with open('quote.html', 'rb') as f:
-    quote = f.read()
-
-quote_nav = re.search(b'<nav id="navbar".*?</nav>', quote, re.DOTALL)
-if not quote_nav:
-    print('Navbar not found in quote.html')
-    exit()
-
-new_quote = quote[:quote_nav.start()] + index_nav + quote[quote_nav.end():]
-
-with open('quote.html', 'wb') as f:
-    f.write(new_quote)
-
-print('Done. quote.html navbar replaced with index.html navbar.')
+if not files_changed:
+    print("  Nothing to change")
+else:
+    print(f"\nDone. {len(files_changed)} file(s) updated")
