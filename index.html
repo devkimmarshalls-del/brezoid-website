@@ -479,6 +479,101 @@
   }
 
   </style>
+
+  <style id="announcement-banner-styles">
+  .announcement-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    width: 100%;
+    overflow: hidden;
+    background: #CC9F46;
+    color: #0b2548;
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease, transform 0.35s ease;
+  }
+  .announcement-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    padding: 0.75rem clamp(1.25rem, 5vw, 3rem);
+  }
+  .announcement-banner-text {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #0b2548;
+  }
+  .announcement-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #0b2548;
+    color: #ffffff;
+    font-family: var(--font-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 0.28rem 0.6rem;
+    border-radius: 999px;
+  }
+  .announcement-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-shrink: 0;
+  }
+  .announcement-link {
+    color: #0b2548;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+  .announcement-link:hover { color: #061424; }
+  .announcement-dismiss {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(11,37,72,0.12);
+    color: #0b2548;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    padding: 0;
+  }
+  .announcement-dismiss:hover { background: rgba(11,37,72,0.22); }
+  @media (max-width: 640px) {
+    .announcement-banner-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .announcement-banner-actions {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+  </style>
 </head>
 
 <body class="font-body">
@@ -596,6 +691,89 @@
       </div>
     </div>
   </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ANNOUNCEMENT BANNER
+  ═══════════════════════════════════════════════════════ -->
+  <div class="announcement-banner" id="announcement-banner" role="region" aria-label="Announcement">
+    <div class="announcement-banner-inner">
+      <div class="announcement-banner-text">
+        <span class="announcement-badge">NEW</span>
+        <span>KRA 2026 Tax Amnesty window is open until December 31, 2026. Act before the deadline.</span>
+      </div>
+      <div class="announcement-banner-actions">
+        <a href="insights/kra-tax-amnesty-2026.html" class="announcement-link">Learn More</a>
+        <button type="button" class="announcement-dismiss" id="announcement-dismiss" aria-label="Dismiss announcement">
+          <svg data-feather="x" width="16" height="16" aria-hidden="true"></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var STORAGE_KEY = 'brezoid_banner_dismissed_amnesty2026';
+      var banner = document.getElementById('announcement-banner');
+      var navbar = document.getElementById('navbar');
+      if (!banner) return;
+
+      var dismissed = false;
+      try { dismissed = !!localStorage.getItem(STORAGE_KEY); } catch (e) {}
+
+      if (dismissed) {
+        banner.remove();
+        return;
+      }
+
+      // The banner and navbar are both position:fixed at top:0, so the navbar
+      // must be pushed down by the banner's height (and the document content
+      // padded by the same amount) or the banner covers the navbar.
+      function applyOffset() {
+        var h = banner.offsetHeight;
+        if (navbar) navbar.style.top = h + 'px';
+        document.body.style.paddingTop = h + 'px';
+      }
+
+      function clearOffset() {
+        if (navbar) navbar.style.top = '0px';
+        document.body.style.paddingTop = '';
+      }
+
+      applyOffset();
+
+      window.addEventListener('resize', function () {
+        // Banner height can change (e.g. mobile stacking), so keep the
+        // navbar/content offset in sync as long as the banner is visible.
+        if (document.body.contains(banner)) applyOffset();
+      });
+
+      var dismissBtn = document.getElementById('announcement-dismiss');
+      if (dismissBtn) {
+        dismissBtn.addEventListener('click', function () {
+          try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+
+          // Lock the current rendered height inline first, then collapse it on
+          // the next frame — animating straight from the 200px CSS max-height
+          // would leave a visible pause before the slide-up actually starts.
+          banner.style.maxHeight = banner.scrollHeight + 'px';
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              banner.style.maxHeight = '0px';
+              banner.style.opacity = '0';
+              banner.style.transform = 'translateY(-10px)';
+            });
+          });
+
+          banner.addEventListener('transitionend', function handler(e) {
+            if (e.propertyName === 'max-height') {
+              clearOffset();
+              banner.remove();
+              banner.removeEventListener('transitionend', handler);
+            }
+          });
+        });
+      }
+    })();
+  </script>
 
   <!-- Mobile overlay -->
   <div class="nav-mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>

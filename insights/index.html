@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tax alerts, KRA deadline updates, and financial compliance insights from Brezoid Global Networks Limited." />
+  <title>Insights | Brezoid Global Networks Limited</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#113766', dark: '#0b2548', light: '#1a4d8f' },
+            accent:  { DEFAULT: '#CC9F46', dark: '#a87d2e', light: '#e0b96a' },
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body:    ['"DM Sans"', 'sans-serif'],
+            mono:    ['"DM Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+
+  <style>
+    /* —— Article tag —— */
+    .article-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid rgba(204,159,70,0.4);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(204,159,70,0.08);
+    }
+
+    /* —— Featured article card —— */
+    .featured-card {
+      display: block;
+      position: relative;
+      padding: 2.75rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px 16px 16px 4px;
+      transition: all 0.3s ease;
+    }
+    .featured-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      border-left-color: var(--accent);
+    }
+    .featured-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-soft);
+    }
+    .featured-card-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    /* —— Newsletter section —— */
+    .insights-newsletter {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      border-radius: 20px;
+      padding: 3.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .insights-newsletter-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(204,159,70,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(204,159,70,0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+    .insights-newsletter-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .insights-newsletter-form input {
+      flex: 1;
+      min-width: 220px;
+      padding: 0.95rem 1.1rem;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      outline: none;
+    }
+    .insights-newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .insights-newsletter-form input:focus { border-color: var(--accent); }
+
+    /* —— Coming soon placeholder —— */
+    .coming-soon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3.5rem 2rem;
+      border: 1.5px dashed var(--border);
+      border-radius: 16px;
+      color: var(--muted);
+    }
+    .coming-soon-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body class="font-body">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="page-transition-overlay" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="nav-transparent" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a href="../index.html" class="nav-logo" aria-label="Brezoid Global Networks Limited — Home">
+        <img src="../assets/images/Brezoid-logo-light.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img nav-logo-img-white" width="160" height="38" />
+        <img src="../assets/images/brezoid-logo.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img nav-logo-img-color" width="160" height="38" />
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="nav-menu" role="list">
+        <li>
+          <a href="../index.html" class="nav-link">Home</a>
+        </li>
+        <li>
+          <a href="../about.html" class="nav-link">About Us</a>
+        </li>
+
+        <!-- Services Dropdown -->
+        <li class="nav-dropdown">
+          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Services
+            <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="../services/tax-agent.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="file-text" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Tax Agency</span>
+                <span class="nav-dropdown-desc">KRA compliance &amp; filing</span>
+              </span>
+            </a>
+            <a href="../services/auditing.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="search" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Auditing &amp; Assurance</span>
+                <span class="nav-dropdown-desc">Statutory &amp; internal audits</span>
+              </span>
+            </a>
+            <a href="../services/bookkeeping.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="book-open" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Bookkeeping</span>
+                <span class="nav-dropdown-desc">Accurate financial records</span>
+              </span>
+            </a>
+            <a href="../services/accounting.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="bar-chart-2" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Accounting</span>
+                <span class="nav-dropdown-desc">IFRS-compliant reporting</span>
+              </span>
+            </a>
+            <a href="../services/tax-advisory.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="briefcase" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Tax Advisory</span>
+                <span class="nav-dropdown-desc">Strategic tax planning</span>
+              </span>
+            </a>
+            <a href="../services/business-registration.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="award" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Business Registration</span>
+                <span class="nav-dropdown-desc">Company &amp; NGO setup</span>
+              </span>
+            </a>
+            <a href="../services/forensic.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Forensic Accounting</span>
+                <span class="nav-dropdown-desc">Fraud detection &amp; litigation</span>
+              </span>
+            </a>
+            <a href="../services/international-tax.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">International Tax</span>
+                <span class="nav-dropdown-desc">Cross-border structuring</span>
+              </span>
+            </a>
+          </div>
+        </li>
+
+        <li>
+          <a href="../contact.html" class="nav-link">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-4 ml-4">
+        <a href="tel:+254112472121" class="hidden lg:flex items-center gap-2 text-white/70 hover:text-accent transition-colors duration-200 text-sm font-mono tracking-wide" aria-label="Call us">
+          <svg data-feather="phone" width="14" height="14" aria-hidden="true"></svg>
+          +254 112 472 121
+        </a>
+        <a href="../quote.html" class="nav-cta" aria-label="Get a free quote">Get a Quote</a>
+        <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div style="margin-bottom:2rem;"><div class="nav-logo"><img src="../assets/images/brezoid-logo.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img" width="150" height="36" /></div></div>
+    <a href="../index.html" class="nav-mobile-link">Home</a>
+    <a href="../about.html" class="nav-mobile-link">About Us</a>
+    <button class="nav-mobile-link w-full text-left" data-mobile-accordion="#mobile-services" aria-expanded="false">Services <svg data-feather="chevron-down" width="16" height="16" data-accordion-icon aria-hidden="true"></svg></button>
+    <div id="mobile-services" class="nav-mobile-sub">
+      <a href="../services/index.html" class="nav-mobile-sub-link">Tax Agency</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Auditing &amp; Assurance</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Bookkeeping</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Accounting</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Tax Advisory</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Business Registration</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Forensic Accounting</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">International Tax</a>
+    </div>
+    <a href="../contact.html" class="nav-mobile-link">Contact</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="tel:+254112472121" class="flex items-center gap-3 py-3 text-sm" style="color:var(--body-text);"><svg data-feather="phone" width="16" height="16" aria-hidden="true"></svg>+254 112 472 121</a>
+    <div class="nav-mobile-cta"><a href="../quote.html" class="btn btn-primary" style="width:100%;justify-content:center;">Get a Free Quote</a></div>
+  </div>
+
+  <main id="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header" style="background:linear-gradient(135deg,#0b2548 0%,#113766 100%);padding-top:calc(var(--nav-height-scrolled) + 4rem);padding-bottom:3.5rem;">
+      <div class="page-header-bg" aria-hidden="true"></div>
+      <div class="page-header-line" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div style="max-width:680px;">
+          <nav aria-label="Breadcrumb" class="reveal" style="margin-bottom:1.5rem;">
+            <ol style="display:flex;align-items:center;gap:0.5rem;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.06em;color:rgba(255,255,255,0.4);" role="list">
+              <li><a href="../index.html" style="color:rgba(255,255,255,0.4);transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Home</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li aria-current="page" style="color:var(--accent);">Insights</li>
+            </ol>
+          </nav>
+          <div class="reveal" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:1.25rem;" data-delay="0.03">
+            <span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>
+            <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(204,159,70,0.8);">Tax &amp; Compliance</span>
+          </div>
+          <h1 class="reveal" style="font-family:var(--font-display);font-size:clamp(2.25rem,4.5vw,3.5rem);font-weight:300;line-height:1.15;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.25rem;" data-delay="0.06">
+            Brezoid <em style="color:var(--accent);font-style:italic;">Insights</em>
+          </h1>
+          <p class="reveal text-lead" style="color:rgba(255,255,255,0.6);max-width:520px;" data-delay="0.1">
+            Tax alerts, compliance updates, and advisory perspectives from our team.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- —— FEATURED ARTICLE —— -->
+    <section class="section bg-white" aria-labelledby="featured-heading">
+      <div class="container">
+        <div style="max-width:900px;margin:0 auto;">
+
+          <div class="reveal" style="margin-bottom:2rem;">
+            <span style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;">
+              <span style="width:24px;height:1px;background:var(--accent);display:inline-block;"></span>Latest
+            </span>
+            <h2 id="featured-heading" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Featured Article</h2>
+          </div>
+
+          <a href="kra-tax-amnesty-2026.html" class="featured-card reveal" data-delay="0.05">
+            <span class="article-tag"><svg data-feather="alert-circle" width="12" height="12" aria-hidden="true"></svg>Tax Alert</span>
+            <h3 style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:500;line-height:1.25;color:var(--ink);margin:1.25rem 0 0.875rem;">
+              KRA 2026 Tax Amnesty: What Your Business Needs to Know Before December 31
+            </h3>
+            <p style="font-size:1rem;line-height:1.8;color:var(--body-text);max-width:640px;">
+              The Finance Act 2026 introduced a tax amnesty window running until December 31, 2026. Here is what Kenyan businesses need to act on now.
+            </p>
+            <div class="featured-card-meta">
+              <span class="featured-card-meta-item"><svg data-feather="calendar" width="13" height="13" aria-hidden="true"></svg>July 2026</span>
+              <span class="featured-card-meta-item"><svg data-feather="clock" width="13" height="13" aria-hidden="true"></svg>4 min read</span>
+              <span style="margin-left:auto;display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--font-body);font-weight:600;font-size:0.88rem;color:var(--primary);">
+                Read Article<svg data-feather="arrow-right" width="15" height="15" aria-hidden="true"></svg>
+              </span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- —— MORE INSIGHTS COMING SOON —— -->
+    <section class="section--sm" style="background:var(--surface);" aria-label="More insights">
+      <div class="container">
+        <div style="max-width:900px;margin:0 auto;">
+          <div class="coming-soon-card reveal">
+            <div class="coming-soon-icon"><svg data-feather="edit-3" width="20" height="20" aria-hidden="true"></svg></div>
+            <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;color:var(--muted);margin-bottom:0.4rem;">More insights coming soon</p>
+            <p style="font-size:0.85rem;color:var(--muted);max-width:380px;">We publish new tax alerts and compliance updates as Kenyan regulation changes. Check back regularly, or subscribe below.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- —— NEWSLETTER —— -->
+    <section class="section bg-white" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <div class="insights-newsletter reveal" style="max-width:900px;margin:0 auto;">
+          <div class="insights-newsletter-bg" aria-hidden="true"></div>
+          <div style="position:relative;z-index:1;text-align:center;">
+            <div style="width:44px;height:44px;background:rgba(204,159,70,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+              <svg data-feather="mail" width="20" height="20" style="color:var(--accent);" aria-hidden="true"></svg>
+            </div>
+            <h2 id="newsletter-heading" style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:400;color:var(--white);margin-bottom:0.75rem;">
+              Get KRA alerts and tax updates <em style="font-style:italic;color:var(--accent);">direct to your inbox</em>
+            </h2>
+            <p style="color:rgba(255,255,255,0.6);max-width:440px;margin:0 auto 2rem;font-size:0.95rem;line-height:1.75;">
+              No spam, just deadline reminders and regulatory changes that affect your business.
+            </p>
+
+            <!-- Web3Forms will be wired here for newsletter submission handling -->
+            <form id="insights-newsletter-form" class="insights-newsletter-form" novalidate>
+              <input type="email" placeholder="Your email address" aria-label="Email for newsletter" required />
+              <button type="submit" class="btn btn-accent" style="flex-shrink:0;">
+                Subscribe<svg data-feather="arrow-right" width="16" height="16" aria-hidden="true"></svg>
+              </button>
+            </form>
+            <p style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:0.875rem;">No spam. Unsubscribe any time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;"><img src="../assets/images/Brezoid-logo-light.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img nav-logo-img-white" width="160" height="38" /><img src="../assets/images/brezoid-logo.svg" alt="" aria-hidden="true" class="nav-logo-img nav-logo-img-color" width="160" height="38" /></div>
+            <p class="footer-brand-desc">Kenya's trusted partner for tax advisory, statutory audits, and financial compliance. Precision. Integrity. Results.</p>
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.75rem;color:rgba(255,255,255,0.4);font-size:0.82rem;"><svg data-feather="map-pin" width="14" height="14" style="flex-shrink:0;margin-top:3px;color:var(--accent);" aria-hidden="true"></svg><span>Ecobank Towers, Mama Ngina Street<br/>Jubilee Exchange Building, 4th Floor<br/>P.O. Box 12345-00100</span></div>
+            <a href="tel:+254112472121" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>+254 112 472 121</a><br/>
+            <a href="mailto:operations@brezoidglobal.co.ke" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;"><svg data-feather="mail" width="13" height="13" aria-hidden="true"></svg>operations@brezoidglobal.co.ke</a>
+          </div>
+          <div>
+            <h3 class="footer-heading">Services</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="../services/index.html" class="footer-link">Tax Agency</a></li>
+              <li><a href="../services/index.html" class="footer-link">Auditing &amp; Assurance</a></li>
+              <li><a href="../services/index.html" class="footer-link">Bookkeeping</a></li>
+              <li><a href="../services/index.html" class="footer-link">Accounting</a></li>
+              <li><a href="../services/index.html" class="footer-link">Tax Advisory</a></li>
+              <li><a href="../services/index.html" class="footer-link">Forensic Accounting</a></li>
+              <li><a href="../services/index.html" class="footer-link">International Tax</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Company</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="../about.html" class="footer-link">About Us</a></li>
+              <li><a href="../about.html#team" class="footer-link">Our Team</a></li>
+              <li><a href="../about.html#values" class="footer-link">Our Values</a></li>
+              <li><a href="../contact.html" class="footer-link">Contact</a></li>
+              <li><a href="../quote.html" class="footer-link">Get a Quote</a></li>
+              <li>Careers</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Tax Updates</h3>
+            <p style="font-size:0.82rem;color:rgba(255,255,255,0.42);line-height:1.75;margin-bottom:1.25rem;">Subscribe for KRA deadline alerts and Kenyan tax law updates.</p>
+            <form id="newsletter-form" style="display:flex;flex-direction:column;gap:0.5rem;" novalidate>
+              <div style="display:flex;gap:0.5rem;">
+                <input type="email" placeholder="Your email address" style="flex:1;padding:0.7rem 0.875rem;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:6px;color:white;font-size:0.85rem;font-family:var(--font-body);outline:none;" aria-label="Email for newsletter" required/>
+                <button type="submit" class="btn btn-accent" style="padding:0.7rem 0.875rem;flex-shrink:0;" aria-label="Subscribe"><svg data-feather="arrow-right" width="16" height="16" aria-hidden="true"></svg></button>
+              </div>
+              <p style="font-size:0.68rem;color:rgba(255,255,255,0.25);">No spam. Unsubscribe any time.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="footer-year">2025</span> Brezoid Global Networks Limited. All rights reserved. Registered in Kenya · TPA/2004/0142</p>
+        <nav aria-label="Legal links" style="display:flex;gap:1.25rem;flex-wrap:wrap;">
+          <a href="../privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="../terms.html" class="footer-link">Terms of Use</a>
+        </nav>
+        <div class="footer-social" role="list" aria-label="Social media">
+          <a href="#" class="footer-social-link" aria-label="LinkedIn" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="footer-social-link" aria-label="Twitter" role="listitem"><svg data-feather="twitter" width="14" height="14" aria-hidden="true"></svg></a>
+          <a href="#" class="footer-social-link" aria-label="Facebook" role="listitem"><svg data-feather="facebook" width="14" height="14" aria-hidden="true"></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top"><svg data-feather="arrow-up" width="18" height="18" aria-hidden="true"></svg></button>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    function wireNewsletterForm(id) {
+      const nf = document.getElementById(id);
+      if (!nf) return;
+      nf.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const inp = this.querySelector('input'); const btn = this.querySelector('button');
+        if (!inp || !inp.value.trim()) return;
+        if (btn) { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'; btn.style.background = '#1a8a5c'; }
+        inp.value = ''; inp.placeholder = "You're subscribed!"; inp.disabled = true;
+      });
+    }
+    wireNewsletterForm('newsletter-form');
+    wireNewsletterForm('insights-newsletter-form');
+  </script>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

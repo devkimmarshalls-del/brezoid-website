@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Finance Act 2026 tax amnesty gives Kenyan businesses until December 31, 2026 to clear historical penalties and interest. Here's what your business needs to do before the deadline." />
+  <title>KRA 2026 Tax Amnesty: What Your Business Needs to Know | Brezoid Global Networks Limited</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#113766', dark: '#0b2548', light: '#1a4d8f' },
+            accent:  { DEFAULT: '#CC9F46', dark: '#a87d2e', light: '#e0b96a' },
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body:    ['"DM Sans"', 'sans-serif'],
+            mono:    ['"DM Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+
+  <style>
+    /* —— Article body —— */
+    .article-body { max-width: 760px; margin: 0 auto; }
+    .article-body h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.25;
+      margin: 3rem 0 1rem;
+    }
+    .article-body p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--body-text);
+      margin-bottom: 1.25rem;
+    }
+    .article-body ul { margin: 0 0 1.5rem 1.25rem; }
+    .article-body li {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: var(--body-text);
+      margin-bottom: 0.6rem;
+      padding-left: 0.25rem;
+    }
+    .article-body strong { color: var(--ink); font-weight: 600; }
+    .article-lead {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* —— Callout: 100% principal rule —— */
+    .callout-gold {
+      position: relative;
+      padding: 2rem 2.25rem;
+      background: var(--primary);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px 12px 12px 4px;
+      margin: 2.5rem 0;
+    }
+    .callout-gold-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .callout-gold p {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 2vw, 1.4rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--white);
+      margin-bottom: 0;
+    }
+
+    /* —— Info box: filing timelines —— */
+    .info-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin: 2.5rem 0;
+    }
+    .info-box-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .info-box-title svg { color: var(--accent); }
+    .info-table { width: 100%; border-collapse: collapse; }
+    .info-table tr { border-bottom: 1px solid var(--border-soft); }
+    .info-table tr:last-child { border-bottom: none; }
+    .info-table td {
+      padding: 0.9rem 0;
+      font-size: 0.92rem;
+      color: var(--body-text);
+      vertical-align: top;
+    }
+    .info-table td:first-child {
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--ink);
+      width: 42%;
+      padding-right: 1.5rem;
+    }
+    .info-table td:last-child { color: var(--muted); }
+
+    /* —— Warning box: eTIMS —— */
+    .warning-box {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(192, 57, 43, 0.05);
+      border: 1px solid rgba(192, 57, 43, 0.2);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin: 2.5rem 0;
+    }
+    .warning-box-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: rgba(192, 57, 43, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--error);
+    }
+    .warning-box-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--error);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .warning-box p {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--body-text);
+      margin-bottom: 0.6rem;
+    }
+    .warning-box p:last-child { margin-bottom: 0; }
+
+    /* —— Article meta —— */
+    .article-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+    }
+    .article-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid rgba(204,159,70,0.4);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(204,159,70,0.08);
+    }
+
+    /* —— Related links —— */
+    .related-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.5rem 1.75rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--white);
+      transition: all 0.25s ease;
+    }
+    .related-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="font-body">
+
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="page-transition-overlay" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="nav-transparent" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a href="../index.html" class="nav-logo" aria-label="Brezoid Global Networks Limited — Home">
+        <img src="../assets/images/Brezoid-logo-light.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img nav-logo-img-white" width="160" height="38" />
+        <img src="../assets/images/brezoid-logo.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img nav-logo-img-color" width="160" height="38" />
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="nav-menu" role="list">
+        <li>
+          <a href="../index.html" class="nav-link">Home</a>
+        </li>
+        <li>
+          <a href="../about.html" class="nav-link">About Us</a>
+        </li>
+
+        <!-- Services Dropdown -->
+        <li class="nav-dropdown">
+          <button class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Services
+            <svg data-feather="chevron-down" width="14" height="14" aria-hidden="true"></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="../services/tax-agent.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="file-text" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Tax Agency</span>
+                <span class="nav-dropdown-desc">KRA compliance &amp; filing</span>
+              </span>
+            </a>
+            <a href="../services/auditing.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="search" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Auditing &amp; Assurance</span>
+                <span class="nav-dropdown-desc">Statutory &amp; internal audits</span>
+              </span>
+            </a>
+            <a href="../services/bookkeeping.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="book-open" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Bookkeeping</span>
+                <span class="nav-dropdown-desc">Accurate financial records</span>
+              </span>
+            </a>
+            <a href="../services/accounting.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="bar-chart-2" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Accounting</span>
+                <span class="nav-dropdown-desc">IFRS-compliant reporting</span>
+              </span>
+            </a>
+            <a href="../services/tax-advisory.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="briefcase" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Tax Advisory</span>
+                <span class="nav-dropdown-desc">Strategic tax planning</span>
+              </span>
+            </a>
+            <a href="../services/business-registration.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="award" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Business Registration</span>
+                <span class="nav-dropdown-desc">Company &amp; NGO setup</span>
+              </span>
+            </a>
+            <a href="../services/forensic.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="shield" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">Forensic Accounting</span>
+                <span class="nav-dropdown-desc">Fraud detection &amp; litigation</span>
+              </span>
+            </a>
+            <a href="../services/international-tax.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon"><svg data-feather="globe" aria-hidden="true"></svg></span>
+              <span>
+                <span class="nav-dropdown-label">International Tax</span>
+                <span class="nav-dropdown-desc">Cross-border structuring</span>
+              </span>
+            </a>
+          </div>
+        </li>
+
+        <li>
+          <a href="../contact.html" class="nav-link">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-4 ml-4">
+        <a href="tel:+254112472121" class="hidden lg:flex items-center gap-2 text-white/70 hover:text-accent transition-colors duration-200 text-sm font-mono tracking-wide" aria-label="Call us">
+          <svg data-feather="phone" width="14" height="14" aria-hidden="true"></svg>
+          +254 112 472 121
+        </a>
+        <a href="../quote.html" class="nav-cta" aria-label="Get a free quote">Get a Quote</a>
+        <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <div class="nav-mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div style="margin-bottom:2rem;"><div class="nav-logo"><img src="../assets/images/brezoid-logo.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img" width="150" height="36" /></div></div>
+    <a href="../index.html" class="nav-mobile-link">Home</a>
+    <a href="../about.html" class="nav-mobile-link">About Us</a>
+    <button class="nav-mobile-link w-full text-left" data-mobile-accordion="#mobile-services" aria-expanded="false">Services <svg data-feather="chevron-down" width="16" height="16" data-accordion-icon aria-hidden="true"></svg></button>
+    <div id="mobile-services" class="nav-mobile-sub">
+      <a href="../services/index.html" class="nav-mobile-sub-link">Tax Agency</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Auditing &amp; Assurance</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Bookkeeping</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Accounting</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Tax Advisory</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Business Registration</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">Forensic Accounting</a>
+      <a href="../services/index.html" class="nav-mobile-sub-link">International Tax</a>
+    </div>
+    <a href="../contact.html" class="nav-mobile-link">Contact</a>
+    <div class="nav-mobile-divider"></div>
+    <a href="tel:+254112472121" class="flex items-center gap-3 py-3 text-sm" style="color:var(--body-text);"><svg data-feather="phone" width="16" height="16" aria-hidden="true"></svg>+254 112 472 121</a>
+    <div class="nav-mobile-cta"><a href="../quote.html" class="btn btn-primary" style="width:100%;justify-content:center;">Get a Free Quote</a></div>
+  </div>
+
+  <main id="main">
+
+    <!-- ARTICLE HERO -->
+    <div class="page-header" style="background:linear-gradient(135deg,#0b2548 0%,#113766 100%);">
+      <div class="page-header-bg" aria-hidden="true"></div>
+      <div class="page-header-line" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div style="max-width:760px;margin:0 auto;">
+
+          <!-- Breadcrumb -->
+          <nav aria-label="Breadcrumb" class="reveal" style="margin-bottom:2rem;">
+            <ol style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.06em;color:rgba(255,255,255,0.4);" role="list">
+              <li><a href="../index.html" style="color:rgba(255,255,255,0.4);transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Home</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li><a href="index.html" style="color:rgba(255,255,255,0.4);transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Insights</a></li>
+              <li aria-hidden="true"><svg data-feather="chevron-right" width="12" height="12"></svg></li>
+              <li aria-current="page" style="color:var(--accent);">KRA 2026 Tax Amnesty</li>
+            </ol>
+          </nav>
+
+          <div class="reveal" style="margin-bottom:1.5rem;">
+            <span class="article-tag"><svg data-feather="alert-circle" width="12" height="12" aria-hidden="true"></svg>Tax Alert</span>
+          </div>
+
+          <h1 class="reveal" style="font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.25rem);font-weight:300;line-height:1.18;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.5rem;" data-delay="0.05">
+            KRA 2026 Tax Amnesty: What Your Business Needs to Know Before <em style="color:var(--accent);font-style:italic;">December 31</em>
+          </h1>
+
+          <div class="reveal" style="display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.12);" data-delay="0.1">
+            <span class="article-meta-item"><svg data-feather="user" width="13" height="13" aria-hidden="true"></svg>Brezoid Advisory Team</span>
+            <span class="article-meta-item"><svg data-feather="calendar" width="13" height="13" aria-hidden="true"></svg>July 2026</span>
+            <span class="article-meta-item"><svg data-feather="clock" width="13" height="13" aria-hidden="true"></svg>4 min read</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE BODY -->
+    <section class="section bg-white" aria-label="Article content">
+      <div class="container">
+        <div class="article-body reveal">
+
+          <p class="article-lead">The Finance Act 2026 introduced a tax amnesty framework giving Kenyan taxpayers until <strong>December 31, 2026</strong> to clear historical penalties and interest on tax liabilities that arose on or before December 31, 2025. If your business has outstanding KRA obligations from prior years, this window, and the conditions attached to it, deserve your immediate attention.</p>
+
+          <h2>The Amnesty Window</h2>
+          <p>The relief applies to accumulated penalties, interest, and non-compliance fines attached to tax liabilities incurred before the end of 2025. It runs until <strong>December 31, 2026</strong>, after which unresolved penalties and interest revert to being enforceable in full.</p>
+          <p>Importantly, the waiver itself is automatic once the qualifying conditions are met: there is no separate application required to have penalties and interest written off. What KRA does require is that the underlying tax debt be settled correctly, which is where most businesses run into trouble.</p>
+
+          <h2>The 100% Principal Rule</h2>
+          <p>Qualifying for the automatic waiver hinges on one non-negotiable condition: the full principal tax owed must be paid in full.</p>
+
+          <div class="callout-gold">
+            <span class="callout-gold-label">The Rule That Matters Most</span>
+            <p>To trigger the waiver on penalties and interest, you must pay 100% of the underlying principal tax. Partial payments do not unlock a partial waiver: the relief only activates once the principal is cleared in full.</p>
+          </div>
+
+          <p>Businesses that cannot raise the full principal upfront are not without options. KRA's <strong>Automated Payment Plan (APP)</strong>, accessible through the iTax Portal under the Debt and Enforcement tab, allows structured repayment. To keep the amnesty active while on a payment plan, you must submit a signed commitment letter and adhere strictly to the agreed schedule: a missed instalment can jeopardise the waiver.</p>
+
+          <h2>Revised Filing Timelines</h2>
+          <p>The Finance Act 2026 also tightened statutory filing deadlines, which businesses should factor into their compliance calendar alongside the amnesty process.</p>
+
+          <div class="info-box">
+            <span class="info-box-title"><svg data-feather="calendar" width="14" height="14" aria-hidden="true"></svg>Key Filing Deadlines</span>
+            <table class="info-table">
+              <tr>
+                <td>Nil Returns</td>
+                <td>Must be filed within 1 month after the end of the year of income.</td>
+              </tr>
+              <tr>
+                <td>Income Fully Taxed at Source (PAYE)</td>
+                <td>Must be filed within 4 months after year-end.</td>
+              </tr>
+              <tr>
+                <td>Annual 2025 Returns</td>
+                <td>Hard deadline was June 30, 2026, with no extensions granted. Late filers incurred a KSh 2,000 penalty, which can itself be waived under the 2026 amnesty once the taxpayer regularises their position.</td>
+              </tr>
+            </table>
+          </div>
+
+          <h2>The eTIMS Compliance Caveat</h2>
+          <p>Before making any amnesty payment, businesses should be aware of a change that can quietly inflate their principal tax debt.</p>
+
+          <div class="warning-box">
+            <div class="warning-box-icon"><svg data-feather="alert-triangle" width="18" height="18" aria-hidden="true"></svg></div>
+            <div>
+              <span class="warning-box-title">Audit Your Expenses First</span>
+              <p>From the 2026 year of income, KRA requires all business expenses to be supported by valid electronic tax invoices generated through eTIMS. Expenses without a matching eTIMS invoice are treated as taxable profit, which increases your principal tax liability before any amnesty calculation is applied.</p>
+              <p>We recommend auditing your expense records now, before committing to an amnesty payment, so you are settling the correct principal figure rather than an inflated one.</p>
+            </div>
+          </div>
+
+          <p>The amnesty is a genuine opportunity to clear the slate on historical non-compliance, but it rewards businesses that move early and verify their numbers before paying. Waiting until close to the December deadline leaves little room to correct errors in your principal balance or negotiate a payment plan.</p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- RELATED LINKS -->
+    <section class="section--sm" style="background:var(--surface);" aria-labelledby="related-heading">
+      <div class="container">
+        <div class="article-body">
+          <h3 id="related-heading" style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;">Related Services</h3>
+          <div style="display:grid;grid-template-columns:1fr;gap:1rem;" class="sm:grid-cols-2">
+            <a href="../services/tax-agent.html" class="related-card">
+              <span>
+                <span style="display:block;font-family:var(--font-display);font-size:1.1rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Tax Agency</span>
+                <span style="font-size:0.82rem;color:var(--muted);">KRA compliance, filing &amp; representation</span>
+              </span>
+              <svg data-feather="arrow-right" width="16" height="16" style="color:var(--accent);flex-shrink:0;" aria-hidden="true"></svg>
+            </a>
+            <a href="../services/tax-advisory.html" class="related-card">
+              <span>
+                <span style="display:block;font-family:var(--font-display);font-size:1.1rem;font-weight:500;color:var(--ink);margin-bottom:0.25rem;">Tax Advisory</span>
+                <span style="font-size:0.82rem;color:var(--muted);">Strategic planning &amp; dispute resolution</span>
+              </span>
+              <svg data-feather="arrow-right" width="16" height="16" style="color:var(--accent);flex-shrink:0;" aria-hidden="true"></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- —— CTA —— -->
+    <section style="background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);padding:5rem 0;position:relative;overflow:hidden;" aria-labelledby="article-cta-heading">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(204,159,70,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(204,159,70,0.05) 1px,transparent 1px);background-size:48px 48px;" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;text-align:center;">
+        <h2 class="heading-section reveal" id="article-cta-heading" style="color:var(--white);margin-bottom:1rem;">Not sure where your business stands?</h2>
+        <p class="reveal" data-delay="0.06" style="color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto 2.5rem;font-size:1rem;line-height:1.8;">Brezoid can calculate your outstanding principal tax balance on iTax, prepare your amnesty application, and set up a payment plan on your behalf.</p>
+        <div class="reveal" data-delay="0.1" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+          <a href="../quote.html" class="btn btn-accent btn-lg"><svg data-feather="calendar" width="18" height="18" aria-hidden="true"></svg>Book a Free Call</a>
+          <a href="tel:+254112472121" class="btn btn-outline-light btn-lg"><svg data-feather="phone" width="18" height="18" aria-hidden="true"></svg>Call +254 112 472 121</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;"><img src="../assets/images/Brezoid-logo-light.svg" alt="Brezoid Global Networks Limited" class="nav-logo-img nav-logo-img-white" width="160" height="38" /><img src="../assets/images/brezoid-logo.svg" alt="" aria-hidden="true" class="nav-logo-img nav-logo-img-color" width="160" height="38" /></div>
+            <p class="footer-brand-desc">Kenya's trusted partner for tax advisory, statutory audits, and financial compliance. Precision. Integrity. Results.</p>
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.75rem;color:rgba(255,255,255,0.4);font-size:0.82rem;"><svg data-feather="map-pin" width="14" height="14" style="flex-shrink:0;margin-top:3px;color:var(--accent);" aria-hidden="true"></svg><span>Ecobank Towers, Mama Ngina Street<br/>Jubilee Exchange Building, 4th Floor<br/>P.O. Box 12345-00100</span></div>
+            <a href="tel:+254112472121" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;"><svg data-feather="phone" width="13" height="13" aria-hidden="true"></svg>+254 112 472 121</a><br/>
+            <a href="mailto:operations@brezoidglobal.co.ke" class="footer-link" style="display:inline-flex;align-items:center;gap:0.5rem;"><svg data-feather="mail" width="13" height="13" aria-hidden="true"></svg>operations@brezoidglobal.co.ke</a>
+          </div>
+          <div>
+            <h3 class="footer-heading">Services</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="../services/index.html" class="footer-link">Tax Agency</a></li>
+              <li><a href="../services/index.html" class="footer-link">Auditing &amp; Assurance</a></li>
+              <li><a href="../services/index.html" class="footer-link">Bookkeeping</a></li>
+              <li><a href="../services/index.html" class="footer-link">Accounting</a></li>
+              <li><a href="../services/index.html" class="footer-link">Tax Advisory</a></li>
+              <li><a href="../services/index.html" class="footer-link">Forensic Accounting</a></li>
+              <li><a href="../services/index.html" class="footer-link">International Tax</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Company</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="../about.html" class="footer-link">About Us</a></li>
+              <li><a href="../about.html#team" class="footer-link">Our Team</a></li>
+              <li><a href="../about.html#values" class="footer-link">Our Values</a></li>
+              <li><a href="../contact.html" class="footer-link">Contact</a></li>
+              <li><a href="../quote.html" class="footer-link">Get a Quote</a></li>
+              <li>Careers</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Tax Updates</h3>
+            <p style="font-size:0.82rem;color:rgba(255,255,255,0.42);line-height:1.75;margin-bottom:1.25rem;">Subscribe for KRA deadline alerts and Kenyan tax law updates.</p>
+            <form id="newsletter-form" style="display:flex;flex-direction:column;gap:0.5rem;" novalidate>
+              <div style="display:flex;gap:0.5rem;">
+                <input type="email" placeholder="Your email address" style="flex:1;padding:0.7rem 0.875rem;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:6px;color:white;font-size:0.85rem;font-family:var(--font-body);outline:none;" aria-label="Email for newsletter" required/>
+                <button type="submit" class="btn btn-accent" style="padding:0.7rem 0.875rem;flex-shrink:0;" aria-label="Subscribe"><svg data-feather="arrow-right" width="16" height="16" aria-hidden="true"></svg></button>
+              </div>
+              <p style="font-size:0.68rem;color:rgba(255,255,255,0.25);">No spam. Unsubscribe any time.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; <span id="footer-year">2025</span> Brezoid Global Networks Limited. All rights reserved. Registered in Kenya · TPA/2004/0142</p>
+        <nav aria-label="Legal links" style="display:flex;gap:1.25rem;flex-wrap:wrap;">
+          <a href="../privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="../terms.html" class="footer-link">Terms of Use</a>
+        </nav>
+        <div class="footer-social" role="list" aria-label="Social media">
+          <a href="#" class="footer-social-link" aria-label="LinkedIn" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="footer-social-link" aria-label="Twitter" role="listitem"><svg data-feather="twitter" width="14" height="14" aria-hidden="true"></svg></a>
+          <a href="#" class="footer-social-link" aria-label="Facebook" role="listitem"><svg data-feather="facebook" width="14" height="14" aria-hidden="true"></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top"><svg data-feather="arrow-up" width="18" height="18" aria-hidden="true"></svg></button>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+    const nf = document.getElementById('newsletter-form');
+    if (nf) nf.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const inp = this.querySelector('input'); const btn = this.querySelector('button');
+      if (!inp || !inp.value.trim()) return;
+      if (btn) { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'; btn.style.background = '#1a8a5c'; }
+      inp.value = ''; inp.placeholder = "You're subscribed!"; inp.disabled = true;
+    });
+  </script>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
